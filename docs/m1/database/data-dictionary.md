@@ -7,11 +7,11 @@
 | id | BIGINT | NO | PK | AUTO_INCREMENT | Định danh người dùng |
 | username | VARCHAR(50) | NO | UNIQUE | - | Tên đăng nhập |
 | email | VARCHAR(150) | NO | UNIQUE | - | Địa chỉ email |
-| password_hash | VARCHAR(255) | NO | - | - | Mật khẩu đã được mã hóa |
+| password_hash | VARCHAR(255) | NO | - | - | Mật khẩu đã được băm ( hashed) |
 | role | VARCHAR(20) | NO | - | USER | Vai trò của người dùng |
 | enabled | BOOLEAN | NO | - | TRUE | Trạng thái hoạt động của tài khoản |
 | created_at | TIMESTAMP | NO | - | CURRENT_TIMESTAMP | Thời điểm tạo tài khoản |
-| updated_at | TIMESTAMP | NO | - | CURRENT_TIMESTAMP | Thời điểm cập nhật tài khoản |
+| updated_at | TIMESTAMP | NO | - | CURRENT_TIMESTAMP + auto update | Thời điểm cập nhật tài khoản |
 
 ### Role values
 
