@@ -18,6 +18,11 @@ spring:
               predicates:
                 - Path=/api/pois/**
 
+            - id: localization-service
+              uri: http://localhost:8082
+              predicates:
+                - Path=/api/localizations/**
+
 server:
   port: 8080
 
