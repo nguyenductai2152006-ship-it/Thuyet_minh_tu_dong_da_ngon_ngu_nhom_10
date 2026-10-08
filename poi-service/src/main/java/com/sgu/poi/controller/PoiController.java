@@ -31,6 +31,19 @@ public class PoiController {
         return ResponseEntity.ok(poiService.getById(id));
     }
 
+    /**
+     * Tìm POI bằng mã QR.
+     *
+     * Ví dụ:
+     * GET /api/pois/qr/HOIANGUIDE_POI_3
+     */
+    @GetMapping("/qr/{qrCode}")
+    public ResponseEntity<PoiResponse> getByQrCode(
+            @PathVariable String qrCode
+    ) {
+        return ResponseEntity.ok(poiService.getByQrCode(qrCode));
+    }
+
     @PostMapping
     public ResponseEntity<PoiResponse> create(
             @Valid @RequestBody CreatePoiRequest request

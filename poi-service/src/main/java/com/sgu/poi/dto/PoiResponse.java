@@ -12,6 +12,7 @@ public class PoiResponse {
     private BigDecimal latitude;
     private BigDecimal longitude;
     private BigDecimal radius;
+    private String qrCode;
     private String imageUrl;
     private PoiStatus status;
 
@@ -25,6 +26,7 @@ public class PoiResponse {
             BigDecimal latitude,
             BigDecimal longitude,
             BigDecimal radius,
+            String qrCode,
             String imageUrl,
             PoiStatus status
     ) {
@@ -34,6 +36,7 @@ public class PoiResponse {
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;
+        this.qrCode = qrCode;
         this.imageUrl = imageUrl;
         this.status = status;
     }
@@ -84,6 +87,14 @@ public class PoiResponse {
 
     public void setRadius(BigDecimal radius) {
         this.radius = radius;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 
     public String getImageUrl() {

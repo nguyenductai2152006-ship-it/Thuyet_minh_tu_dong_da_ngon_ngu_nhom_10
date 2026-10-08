@@ -29,8 +29,16 @@ public class UpdatePoiRequest {
     private BigDecimal longitude;
 
     @NotNull(message = "Radius is required")
-    @DecimalMin(value = "0.0", inclusive = false, message = "Radius must be greater than 0")
+    @DecimalMin(
+            value = "0.0",
+            inclusive = false,
+            message = "Radius must be greater than 0"
+    )
     private BigDecimal radius;
+
+    @NotBlank(message = "QR Code must not be blank")
+    @Size(max = 100, message = "QR Code must not exceed 100 characters")
+    private String qrCode;
 
     @Size(max = 500, message = "Image URL must not exceed 500 characters")
     private String imageUrl;
@@ -79,6 +87,14 @@ public class UpdatePoiRequest {
 
     public void setRadius(BigDecimal radius) {
         this.radius = radius;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 
     public String getImageUrl() {

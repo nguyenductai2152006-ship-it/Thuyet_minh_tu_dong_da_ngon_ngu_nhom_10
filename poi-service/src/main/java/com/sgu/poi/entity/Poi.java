@@ -28,6 +28,9 @@ public class Poi {
     @Column(name = "radius", nullable = false, precision = 8, scale = 2)
     private BigDecimal radius;
 
+    @Column(name = "qr_code", unique = true, length = 100)
+    private String qrCode;
+
     @Column(name = "image_url", length = 500)
     private String imageUrl;
 
@@ -106,6 +109,14 @@ public class Poi {
 
     public void setRadius(BigDecimal radius) {
         this.radius = radius;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 
     public String getImageUrl() {
