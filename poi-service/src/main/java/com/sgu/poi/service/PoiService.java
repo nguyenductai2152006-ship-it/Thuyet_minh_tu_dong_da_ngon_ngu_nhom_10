@@ -38,6 +38,21 @@ public class PoiService {
         return toResponse(poi);
     }
 
+    /**
+     * Tìm POI bằng mã QR.
+     *
+     * Ví dụ:
+     * HOIANGUIDE_POI_3
+     * HOIANGUIDE_POI_4
+     */
+    @Transactional(readOnly = true)
+    public PoiResponse getByQrCode(String qrCode) {
+        Poi poi = poiRepository.findByQrCode(qrCode.trim())
+                .orElseThrow(() -> new PoiNotFoundException(-1L));
+
+        return toResponse(poi);
+    }
+
     public PoiResponse create(CreatePoiRequest request) {
         Poi poi = new Poi();
 
@@ -46,6 +61,7 @@ public class PoiService {
         poi.setLatitude(request.getLatitude());
         poi.setLongitude(request.getLongitude());
         poi.setRadius(request.getRadius());
+        poi.setQrCode(request.getQrCode().trim());
         poi.setImageUrl(request.getImageUrl());
 
         poi.setStatus(
@@ -68,6 +84,7 @@ public class PoiService {
         poi.setLatitude(request.getLatitude());
         poi.setLongitude(request.getLongitude());
         poi.setRadius(request.getRadius());
+        poi.setQrCode(request.getQrCode().trim());
         poi.setImageUrl(request.getImageUrl());
         poi.setStatus(request.getStatus());
 
@@ -91,6 +108,7 @@ public class PoiService {
                 poi.getLatitude(),
                 poi.getLongitude(),
                 poi.getRadius(),
+                poi.getQrCode(),
                 poi.getImageUrl(),
                 poi.getStatus()
         );
