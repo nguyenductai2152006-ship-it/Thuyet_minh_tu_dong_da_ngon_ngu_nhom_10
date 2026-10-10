@@ -1,0 +1,266 @@
+
+.audio-card-container {
+    max-width: 760px;
+    margin: 24px auto;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e5eaf1;
+    border-radius: 22px;
+    box-shadow: 0 16px 45px rgba(15, 23, 42, 0.09);
+    animation: audio-card-enter 0.35s ease-out;
+}
+
+@keyframes audio-card-enter {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.back-scan-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 15px 20px;
+    color: #334155;
+    background: #f8fafc;
+    border: 0;
+    border-bottom: 1px solid #e5eaf1;
+    text-align: left;
+    font-size: 14px;
+    font-weight: 650;
+    cursor: pointer;
+}
+
+.back-scan-btn:hover {
+    background: #eef2f7;
+}
+
+.cover-container {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    background: #e2e8f0;
+}
+
+.poi-cover-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+}
+
+.cover-overlay {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+}
+
+.lang-badge {
+    display: inline-block;
+    padding: 8px 13px;
+    color: #fff;
+    background: rgba(15, 23, 42, 0.78);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 700;
+    backdrop-filter: blur(8px);
+}
+
+.audio-card-body {
+    padding: 25px;
+}
+
+.audio-eyebrow {
+    margin: 0 0 8px;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 750;
+    letter-spacing: 1.3px;
+}
+
+.poi-title-xl {
+    margin: 0 0 22px;
+    color: #0f172a;
+    font-size: clamp(23px, 4vw, 30px);
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.custom-player {
+    margin-bottom: 25px;
+    padding: 18px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 17px;
+}
+
+.player-controls {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+
+.play-pause-btn {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    padding: 0 0 0 2px;
+    color: #fff;
+    background: #2563eb;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.25);
+    font-size: 22px;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.15s;
+}
+
+.play-pause-btn:hover {
+    background: #1d4ed8;
+}
+
+.play-pause-btn:active {
+    transform: scale(0.96);
+}
+
+.progress-container {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    gap: 9px;
+}
+
+.progress-slider {
+    width: 100%;
+    accent-color: #2563eb;
+    cursor: pointer;
+}
+
+.time-display {
+    display: flex;
+    justify-content: space-between;
+    color: #64748b;
+    font-size: 12px;
+    font-variant-numeric: tabular-nums;
+}
+
+.no-audio-alert {
+    margin-bottom: 24px;
+    padding: 18px;
+    color: #92400e;
+    background: #fffbeb;
+    border: 1px solid #fde68a;
+    border-radius: 15px;
+    font-size: 14px;
+}
+
+.no-audio-alert p {
+    margin: 8px 0 14px;
+    line-height: 1.6;
+}
+
+.speech-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.speech-button,
+.speech-stop-button {
+    padding: 11px 15px;
+    border: 0;
+    border-radius: 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.speech-button {
+    color: #fff;
+    background: #2563eb;
+}
+
+.speech-button:hover:not(:disabled) {
+    background: #1d4ed8;
+}
+
+.speech-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.speech-stop-button {
+    color: #334155;
+    background: #e2e8f0;
+}
+
+.poi-text-content {
+    max-height: 300px;
+    overflow-y: auto;
+    padding-right: 8px;
+    color: #334155;
+    font-size: 15px;
+    line-height: 1.8;
+    text-align: justify;
+    overflow-wrap: anywhere;
+}
+
+.poi-text-content h3 {
+    margin: 0 0 10px;
+    color: #0f172a;
+    font-size: 17px;
+}
+
+.poi-text-content p {
+    margin: 0;
+    white-space: pre-line;
+}
+
+.poi-text-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.poi-text-content::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 10px;
+}
+
+.player-error {
+    margin: 12px 0 0;
+    color: #b91c1c;
+    font-size: 13px;
+}
+
+@media (max-width: 600px) {
+    .audio-card-container {
+        margin: 16px 0;
+        border-radius: 17px;
+    }
+
+    .cover-container {
+        height: 190px;
+    }
+
+    .audio-card-body {
+        padding: 18px;
+    }
+
+    .custom-player {
+        padding: 14px;
+    }
+
+    .play-pause-btn {
+        width: 49px;
+        height: 49px;
+    }
+}

@@ -1,0 +1,281 @@
+/* ==========================================================================
+   HOIAN GUIDE - RESPONSIVE STYLES (HỖ TRỢ CẢ PC & ĐIỆN THOẠI)
+   ========================================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+/* 1. NỀN GIAO DIỆN CHUNG */
+body {
+    background-color: #e5e7eb;
+    margin: 0;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    color: #1f2937;
+}
+
+#root {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; /* Để khung app không bị kéo giãn vô lý trên PC */
+}
+
+/* 2. KHUNG APP (Tự động thích ứng PC / Mobile) */
+.mobile-app-container {
+    width: 100%;
+    max-width: 800px; /* Mở rộng gấp đôi để phù hợp xem trên Máy tính */
+    min-height: 100vh;
+    background-color: #fffaf0; /* Nền màu trắng ngà cổ kính */
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Khi xem trên màn hình lớn (PC/Laptop), App sẽ tự bo tròn góc và cách lề */
+@media (min-width: 820px) {
+    .mobile-app-container {
+        margin: 40px 0;
+        min-height: calc(100vh - 80px);
+        border-radius: 16px;
+        overflow: hidden;
+    }
+}
+
+/* 3. HEADER TÔNG MÀU VÀNG HỘI AN */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    background-color: #f59e0b;
+    color: white;
+    border-bottom: 4px solid #b45309;
+}
+
+.header-info h2 {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+}
+
+.header-info p {
+    margin: 4px 0 0 0;
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.lang-select-mini {
+    padding: 8px 10px;
+    border-radius: 8px;
+    border: 1px solid #fcd34d;
+    background-color: #fffbeb;
+    color: #451a03;
+    font-weight: bold;
+    font-size: 0.95rem;
+    cursor: pointer;
+    outline: none;
+}
+
+.logout-btn-mini {
+    background-color: #dc2626;
+    color: white;
+    border: none;
+    padding: 9px 14px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.logout-btn-mini:hover {
+    background-color: #b91c1c;
+}
+
+/* 4. NỘI DUNG CHÍNH (MAIN AREA) */
+.app-main {
+    padding: 24px;
+    flex: 1;
+}
+
+.welcome-text {
+    text-align: center;
+    color: #78716c;
+    font-weight: 600;
+    margin: 0 0 24px 0;
+    font-size: 1.1rem;
+}
+
+/* 5. CÁC THÔNG BÁO TRẠNG THÁI (LỖI / THÀNH CÔNG) */
+.message {
+    padding: 14px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    font-size: 1rem;
+    text-align: center;
+    font-weight: 500;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.error {
+    background-color: #fef2f2;
+    color: #ef4444;
+    border: 1px solid #fca5a5;
+}
+
+.success {
+    background-color: #f0fdf4;
+    color: #22c55e;
+    border: 1px solid #86efac;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #f59e0b;
+    font-weight: bold;
+}
+
+/* 6. THẺ QUÉT MÃ QR (SCANNER CARD) */
+.card.scanner-card {
+    background: white;
+    border-radius: 16px;
+    padding: 30px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+    border-top: 5px solid #f59e0b;
+    max-width: 600px;
+    margin: 0 auto; /* Căn giữa khung quét QR khi mở trên PC */
+}
+
+.scanner-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.scanner-header h3 {
+    margin: 0 0 8px 0;
+    color: #1e293b;
+    font-size: 1.4rem;
+}
+
+.scanner-header p {
+    margin: 0;
+    font-size: 1rem;
+    color: #64748b;
+}
+
+/* 7. TÙY CHỈNH TRANG ĐĂNG NHẬP */
+.login-container {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 40px 30px;
+    margin: 60px auto;
+    max-width: 450px;
+    width: 90%;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    border-top: 5px solid #f59e0b;
+}
+
+.login-container h1 {
+    margin-top: 0;
+    color: #f59e0b;
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.login-container form > div {
+    margin-bottom: 20px;
+}
+
+.login-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.login-container input {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 10px;
+    font-size: 15px;
+}
+
+.login-container button {
+    width: 100%;
+    background: #f59e0b;
+    color: #ffffff;
+    border: 0;
+    padding: 14px;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.2s;
+}
+
+.login-container button:hover {
+    background: #d97706;
+}
+
+/* =========================================================
+   8. TÙY CHỈNH THƯ VIỆN QR CODE (PHỤC HỒI CHỨC NĂNG TẢI ẢNH)
+   ========================================================= */
+
+/* Hiện lại nút chuyển đổi (Camera <-> Tải ảnh) và làm đẹp nó */
+#html5-qrcode-anchor-scan-type-change {
+    display: inline-block !important;
+    margin-top: 15px !important;
+    color: #d97706 !important;
+    text-decoration: none !important;
+    font-weight: 600 !important;
+    font-size: 15px !important;
+}
+
+#html5-qrcode-anchor-scan-type-change:hover {
+    text-decoration: underline !important;
+}
+
+/* Style chung cho nút Cấp quyền Camera & Nút Chọn file ảnh */
+#html5-qrcode-button-camera-permission,
+#html5-qrcode-button-file-selection {
+    background-color: #f59e0b !important;
+    color: white !important;
+    border: none !important;
+    padding: 12px 20px !important;
+    border-radius: 8px !important;
+    font-weight: bold !important;
+    font-size: 15px !important;
+    cursor: pointer !important;
+    width: 100%;
+    max-width: 300px;
+    margin: 10px auto;
+    display: block;
+    box-shadow: 0 4px 6px rgba(245, 158, 11, 0.3) !important;
+}
+
+/* Viền bao quanh camera / khu vực hiển thị ảnh */
+#reader {
+    border-radius: 12px !important;
+    overflow: hidden;
+    border: 2px dashed #cbd5e1 !important;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+/* Ẩn link quảng cáo dư thừa của thư viện quét mã */
+#html5-qrcode-anchor-scan-type-change ~ a[href*="scanapp.org"] {
+    display: none !important;
+}
