@@ -65,22 +65,21 @@ Response Thành công (200 OK / 201 Created):{
 Error Cases:
 
 400 Bad Request: Thiếu text hoặc languageCode không hợp lệ.
-
 503 Service Unavailable: Dịch vụ TTS bên thứ ba không phản hồi (cho phép service gọi thực hiện cơ chế Fallback).
+
 4.2. Truy xuất thông tin Audio theo POI và Ngôn ngữ
 Method: GET
-
 Endpoint: /api/v1/audio/poi/{poiId}?lang={languageCode}
-
 Mục đích: Kiểm tra và lấy đường dẫn file âm thanh đã sinh của một POI theo mã ngôn ngữ.
+
 5. Thiết kế Cơ sở Dữ liệu (hoian_audio_db)
 Bảng audio_files (Đạt dạng chuẩn 3NF — mọi thuộc tính không khóa đều phụ thuộc trực tiếp vào khóa chính id, không có phụ thuộc bắc cầu):
-Tên cột        Kiểu dữ liệu        Ràng buộc                    Mô tả
-id	           BIGINT	             PRIMARY KEY, AUTO_INCREMENT	Mã định danh duy nhất của bản ghi Audio
-poi_id	       BIGINT	             NOT NULL, INDEX	            ID tham chiếu logic tới POI (không dùng FK vật lý chéo DB)
-language_code	 VARCHAR(10)	       NOT NULL	                    Mã ngôn ngữ (vi, en, ja, ko, fr...)
-text_hash	     VARCHAR(64)	       NOT NULL	                    Mã băm MD5/SHA-256 của văn bản dùng để kiểm tra Cache
-audio_url	     VARCHAR(500)	       NOT NULL	                    Đường dẫn tĩnh hoặc URL để phát file âm thanh
-status	       VARCHAR(20)	       NOT NULL	                    Trạng thái (READY, PROCESSING, FAILED)
-created_at	   DATETIME	           DEFAULT CURRENT_TIMESTAMP	  Thời điểm khởi tạo file
-updated_at	   DATETIME	ON         UPDATE CURRENT_TIMESTAMP	    Thời điểm cập nhật gần nhất
+Tên cột            Kiểu dữ liệu        Ràng buộc                        Mô tả
+id	               BIGINT	           PRIMARY KEY, AUTO_INCREMENT	    Mã định danh duy nhất của bản ghi Audio
+poi_id	           BIGINT	           NOT NULL, INDEX	                ID tham chiếu logic tới POI (không dùng FK vật lý chéo DB)
+language_code      VARCHAR(10)	       NOT NULL	                        Mã ngôn ngữ (vi, en, ja, ko, fr...)
+text_hash	       VARCHAR(64)	       NOT NULL	                        Mã băm MD5/SHA-256 của văn bản dùng để kiểm tra Cache
+audio_url	       VARCHAR(500)	       NOT NULL	                        Đường dẫn tĩnh hoặc URL để phát file âm thanh
+status	           VARCHAR(20)	       NOT NULL	                        Trạng thái (READY, PROCESSING, FAILED)
+created_at	       DATETIME	           DEFAULT CURRENT_TIMESTAMP	    Thời điểm khởi tạo file
+updated_at	       DATETIME	           ON UPDATE CURRENT_TIMESTAMP	    Thời điểm cập nhật gần nhất
