@@ -45,3 +45,51 @@ buildNumber.properties
 .idea/
 **/.idea/
 *.iml
+# ==================================
+# HoiAnGuide - Environment & Secrets
+# ==================================
+.env
+.env.local
+.env.*.local
+**/.env
+**/.env.local
+
+# ==================================
+# Database & Backups
+# ==================================
+backups/
+admin_backups/
+*.sql.gz
+*.sql.bak
+
+# ==================================
+# React / Node.js / Vite
+# ==================================
+node_modules/
+dist/
+coverage/
+.vite/
+*.tsbuildinfo
+
+# ==================================
+# Temporary & Backup Files
+# ==================================
+*.bak
+*.bak.*
+*.bak_*
+*.tmp
+*.temp
+*.orig
+*.swp
+
+# ==================================
+# OS / Editor
+# ==================================
+.vscode/
+.DS_Store
+Thumbs.db
+
+# ==================================
+# Local Development
+# ==================================
+*.local
