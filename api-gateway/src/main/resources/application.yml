@@ -1,3 +1,7 @@
+
+server:
+  port: 8080
+
 spring:
   application:
     name: api-gateway
@@ -7,29 +11,54 @@ spring:
       server:
         webflux:
           routes:
-
             - id: identity-service
-              uri: http://localhost:8085
+              uri: http://identity-service:8085
               predicates:
                 - Path=/api/v1/auth/**
 
             - id: poi-service
-              uri: http://localhost:8081
+              uri: http://poi-service:8081
               predicates:
                 - Path=/api/pois/**
 
+            # Analytics được xử lý bên trong poi-service
+            - id: analytics-service
+              uri: http://poi-service:8081
+              predicates:
+                - Path=/api/analytics/**
+
             - id: localization-service
-              uri: http://localhost:8082
+              uri: http://localization-service:8082
               predicates:
                 - Path=/api/localizations/**
 
             - id: audio-service
-              uri: http://localhost:8083
+              uri: http://audio-service:8083
               predicates:
                 - Path=/api/audio/**
 
-server:
-  port: 8080
+          globalcors:
+            add-to-simple-url-handler-mapping: true
+            cors-configurations:
+              '[/**]':
+                allowedOrigins:
+                  - "http://127.0.0.1:5173"
+                  - "http://localhost:5173"
+                  - "http://127.0.0.1:5174"
+                  - "http://localhost:5174"
+                  - "http://localhost:5175"
+                  - "http://192.168.1.10:5173"
+                  - "https://drug-buildings-determine-nation.trycloudflare.com"
+                  - "https://persuaded-voter-shore.ngrok-free.dev"
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - OPTIONS
+                allowedHeaders:
+                  - "*"
+                maxAge: 3600
 
 management:
   endpoints:

@@ -81,7 +81,7 @@ public class SecurityConfig {
                                         "/api/audio",
                                         "/api/audio/**"
                                 )
-                                .hasAnyRole("USER", "ADMIN")
+                                .permitAll()
 
                                 .requestMatchers(
                                         HttpMethod.POST,

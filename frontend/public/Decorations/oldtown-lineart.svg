@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" fill="none">
+  <g stroke="#A98A55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".82">
+    <path d="M12 142 H308" stroke-width="1.5"/>
+    <path d="M21 141 V91 L47 71 L75 91 V141 M15 91 L47 65 L80 91 M33 141 V111 Q47 97 61 111 V141"/>
+    <path d="M83 141 V75 L117 45 L151 75 V141 M76 75 L117 39 L158 75 M97 141 V92 H136 V141 M107 101 V115 M126 101 V115"/>
+    <path d="M164 141 V93 L187 76 L210 93 V141 M157 93 L187 70 L217 93 M177 141 V111 Q187 100 198 111 V141"/>
+    <path d="M224 141 V83 L255 59 L286 83 V141 M217 83 L255 53 L293 83 M237 141 V104 H273 V141 M245 111 V124 M263 111 V124"/>
+    <path d="M7 153 Q44 145 81 153 T155 153 T229 153 T313 153" stroke-width="1.5"/>
+    <path d="M17 164 Q43 158 69 164 T121 164 T173 164 T225 164 T277 164 T315 164" stroke-width="1.3"/>
+    <path d="M236 38 Q255 30 275 39 M255 38 V47" stroke-width="1.4"/>
+    <path d="M240 35 Q255 24 270 35 L267 42 Q255 47 243 42Z" stroke-width="1.4"/>
+  </g>
+  <g fill="#D5AD55" opacity=".72">
+    <circle cx="47" cy="104" r="2.4"/><circle cx="117" cy="87" r="2.2"/><circle cx="187" cy="103" r="2.2"/><circle cx="255" cy="96" r="2.4"/>
+  </g>
+</svg>
