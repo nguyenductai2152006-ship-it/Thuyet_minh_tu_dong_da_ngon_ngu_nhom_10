@@ -14,13 +14,15 @@ public class AuthDto {
         private String email;
 
         @NotBlank(message = "Password cannot be blank")
-        @Size(min = 6, max = 100, message = "Password must be between 6 and 100 characters")
+        @Size(min = 8, max = 72, message = "Password must be between 8 and 72 characters")
         private String password;
 
         @NotBlank(message = "Full name cannot be blank")
         @Size(min = 2, max = 150, message = "Full name must be between 2 and 150 characters")
         private String fullName;
 
+        @jakarta.validation.constraints.AssertTrue(message="Password must not exceed 72 UTF-8 bytes")
+        public boolean isPasswordWithinByteLimit(){return password==null || password.getBytes(java.nio.charset.StandardCharsets.UTF_8).length<=72;}
         public RegisterRequest() {
         }
 
