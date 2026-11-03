@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 @Table(name = "pois")
 public class Poi {
 
+    @Column(name="category",nullable=false,length=20,columnDefinition="varchar(20) default 'heritage'")
+    private String category="heritage";
+    public String getCategory(){return category;}
+    public void setCategory(String value){category=value;}
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
