@@ -1,93 +1,107 @@
-﻿version: '3.8'
-
 services:
   mysql-db:
     image: mysql:8.0
-    container_name: mysql-db
     environment:
-      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Create .env}
+      IDENTITY_DB_PASSWORD: ${IDENTITY_DB_PASSWORD:?Create .env}
+      POI_DB_PASSWORD: ${POI_DB_PASSWORD:?Create .env}
+      LOCALIZATION_DB_PASSWORD: ${LOCALIZATION_DB_PASSWORD:?Create .env}
+      AUDIO_DB_PASSWORD: ${AUDIO_DB_PASSWORD:?Create .env}
     ports:
-      - "3307:3306"
+    - 127.0.0.1:3307:3306
     volumes:
-      - ./db-init:/docker-entrypoint-initdb.d
-      - mysql_data:/var/lib/mysql
+    - ./db-init:/docker-entrypoint-initdb.d
+    - mysql_data:/var/lib/mysql
     command: --default-authentication-plugin=mysql_native_password
-
+    restart: unless-stopped
+    healthcheck:
+      test:
+      - CMD-SHELL
+      - mysqladmin ping -h 127.0.0.1 -uroot -p"$$MYSQL_ROOT_PASSWORD" --silent
+      interval: 5s
+      timeout: 5s
+      retries: 40
   identity-service:
     build: ./identity-service
-    container_name: identity-service
     ports:
-      - "8085:8085"
+    - 127.0.0.1:8085:8085
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/identity_db?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-      - JWT_SECRET=MotChuoiBiMatRatDaiVaKhoDoanChoNhom10HoiAnGuide
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/identity_db?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: identity_app
+      SPRING_DATASOURCE_PASSWORD: ${IDENTITY_DB_PASSWORD:?Create .env}
+      JWT_SECRET: ${JWT_SECRET:?Create .env}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-3600000}
     depends_on:
-      - mysql-db
-
+      mysql-db:
+        condition: service_healthy
+    restart: unless-stopped
   poi-service:
     build: ./poi-service
-    container_name: poi-service
     ports:
-      - "8081:8081"
+    - 127.0.0.1:8081:8081
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/poi_db?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-      - JWT_SECRET=MotChuoiBiMatRatDaiVaKhoDoanChoNhom10HoiAnGuide
+      LOCALIZATION_SERVICE_URL: http://localization-service:8082
+      AUDIO_SERVICE_URL: http://audio-service:8083
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/poi_db?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: poi_app
+      SPRING_DATASOURCE_PASSWORD: ${POI_DB_PASSWORD:?Create .env}
+      JWT_SECRET: ${JWT_SECRET:?Create .env}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-3600000}
     depends_on:
-      - mysql-db
-
+      mysql-db:
+        condition: service_healthy
+    restart: unless-stopped
   localization-service:
     build: ./localization-service
-    container_name: localization-service
     ports:
-      - "8082:8082"
+    - 127.0.0.1:8082:8082
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/localization_db?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-      - JWT_SECRET=MotChuoiBiMatRatDaiVaKhoDoanChoNhom10HoiAnGuide
+      POI_SERVICE_URL: http://poi-service:8081
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/localization_db?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: localization_app
+      SPRING_DATASOURCE_PASSWORD: ${LOCALIZATION_DB_PASSWORD:?Create .env}
+      JWT_SECRET: ${JWT_SECRET:?Create .env}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-3600000}
     depends_on:
-      - mysql-db
-
+      mysql-db:
+        condition: service_healthy
+    restart: unless-stopped
   audio-service:
     build: ./audio-service
-    container_name: audio-service
     ports:
-      - "8083:8083"
+    - 127.0.0.1:8083:8083
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql-db:3306/audio_db?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
-      - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_PASSWORD=root
-      - JWT_SECRET=MotChuoiBiMatRatDaiVaKhoDoanChoNhom10HoiAnGuide
+      POI_SERVICE_URL: http://poi-service:8081
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db:3306/audio_db?useSSL=false&serverTimezone=Asia/Ho_Chi_Minh&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: audio_app
+      SPRING_DATASOURCE_PASSWORD: ${AUDIO_DB_PASSWORD:?Create .env}
+      JWT_SECRET: ${JWT_SECRET:?Create .env}
+      JWT_EXPIRATION_MS: ${JWT_EXPIRATION_MS:-3600000}
     depends_on:
-      - mysql-db
-
+      mysql-db:
+        condition: service_healthy
+    restart: unless-stopped
   api-gateway:
     build: ./api-gateway
-    container_name: api-gateway
     ports:
-      - "8080:8080"
+    - 127.0.0.1:8080:8080
     environment:
-      - IDENTITY_URI=http://identity-service:8085
-      - POI_URI=http://poi-service:8081
-      - LOCALIZATION_URI=http://localization-service:8082
-      - AUDIO_URI=http://audio-service:8083
+    - IDENTITY_URI=http://identity-service:8085
+    - POI_URI=http://poi-service:8081
+    - LOCALIZATION_URI=http://localization-service:8082
+    - AUDIO_URI=http://audio-service:8083
     depends_on:
-      - identity-service
-      - poi-service
-      - localization-service
-      - audio-service
-
+    - identity-service
+    - poi-service
+    - localization-service
+    - audio-service
+    restart: unless-stopped
   frontend:
     build: ./frontend
-    container_name: frontend
     ports:
-      - "5173:80"
+    - ${FRONTEND_BIND:-127.0.0.1}:5173:80
     depends_on:
-      - api-gateway
-
+    - api-gateway
+    restart: unless-stopped
 volumes:
-  mysql_data:
+  mysql_data: null
