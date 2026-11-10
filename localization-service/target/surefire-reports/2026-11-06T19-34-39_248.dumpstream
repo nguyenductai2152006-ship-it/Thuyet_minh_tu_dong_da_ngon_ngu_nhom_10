@@ -1,0 +1,5 @@
+# Created at 2026-11-06T19:34:39.583
+Boot Manifest-JAR contains absolute paths in classpath 'D:\Thuyet_minh_tu_dong_da_ngon_ngu_nhom_10\Thuyet_minh_tu_dong_da_ngon_ngu_nhom_10_git\localization-service\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+

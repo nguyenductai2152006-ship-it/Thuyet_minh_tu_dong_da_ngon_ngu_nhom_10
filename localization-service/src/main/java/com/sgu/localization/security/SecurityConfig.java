@@ -79,7 +79,7 @@ public class SecurityConfig {
                                 HttpMethod.GET,
                                 "/api/localizations",
                                 "/api/localizations/**"
-                        ).hasAnyRole("USER", "ADMIN")
+                        ).permitAll()
 
                         // Chỉ ADMIN được tạo
                         .requestMatchers(

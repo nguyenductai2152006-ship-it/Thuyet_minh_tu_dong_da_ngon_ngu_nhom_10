@@ -1,0 +1,17 @@
+com\sgu\localization\dto\UpdateLocalizationRequest.class
+com\sgu\localization\security\SecurityConfig.class
+com\sgu\localization\entity\PoiLocalization.class
+com\sgu\localization\dto\CreateLocalizationRequest.class
+com\sgu\localization\security\JwtUtils.class
+com\sgu\localization\LocalizationServiceApplication.class
+com\sgu\localization\security\JwtAuthenticationFilter.class
+com\sgu\localization\service\PoiLocalizationService.class
+com\sgu\localization\service\PoiReferenceValidator.class
+com\sgu\localization\dto\LocalizationResponse.class
+com\sgu\localization\repository\PoiLocalizationRepository.class
+com\sgu\localization\exception\GlobalExceptionHandler.class
+com\sgu\localization\exception\ResourceNotFoundException.class
+com\sgu\localization\exception\DuplicateLocalizationException.class
+com\sgu\localization\service\PoiMutationLock.class
+com\sgu\localization\service\PoiMutationLock$1.class
+com\sgu\localization\controller\PoiLocalizationController.class
