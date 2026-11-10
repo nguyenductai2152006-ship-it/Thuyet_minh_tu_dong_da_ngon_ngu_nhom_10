@@ -82,6 +82,24 @@ public class GlobalExceptionHandler {
         );
     }
 
+    @ExceptionHandler(org.springframework.dao.DataIntegrityViolationException.class)
+    public ResponseEntity<ApiErrorResponse> handleConflict(Exception ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.CONFLICT, "CONFLICT", "Mã QR đã tồn tại hoặc dữ liệu vi phạm ràng buộc. Hãy kiểm tra lại.", request.getRequestURI(), null);
+    }
+
+    @ExceptionHandler(org.springframework.web.server.ResponseStatusException.class)
+    public ResponseEntity<ApiErrorResponse> handleStatus(org.springframework.web.server.ResponseStatusException ex, HttpServletRequest request) {
+        return buildResponse(HttpStatus.valueOf(ex.getStatusCode().value()), "REQUEST_REJECTED", ex.getReason(), request.getRequestURI(), null);
+    }
+
+    @ExceptionHandler(org.springframework.web.method.annotation.MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ApiErrorResponse> handleTypeMismatch(
+            org.springframework.web.method.annotation.MethodArgumentTypeMismatchException ex,
+            HttpServletRequest request) {
+        return buildResponse(HttpStatus.BAD_REQUEST, "Bad Request",
+                "Invalid parameter: " + ex.getName(), request.getRequestURI(), null);
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiErrorResponse> handleGeneric(
             Exception ex,

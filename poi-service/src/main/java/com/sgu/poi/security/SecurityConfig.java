@@ -23,69 +23,35 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
-            throws Exception {
-
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         AuthenticationEntryPoint unauthorizedEntryPoint =
                 new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED);
 
         http
                 .csrf(csrf -> csrf.disable())
-
-                .sessionManagement(session ->
-                        session.sessionCreationPolicy(
-                                SessionCreationPolicy.STATELESS
-                        )
-                )
-
-                .exceptionHandling(exception ->
-                        exception
-                                .authenticationEntryPoint(unauthorizedEntryPoint)
-                                .accessDeniedHandler((request, response, accessDeniedException) -> {
-                                    response.setStatus(HttpStatus.FORBIDDEN.value());
-                                    response.setContentType("application/json");
-                                    response.getWriter().write(
-                                            "{\"status\":403,\"error\":\"FORBIDDEN\",\"message\":\"Access denied\"}"
-                                    );
-                                })
-                )
-
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .exceptionHandling(exception -> exception
+                        .authenticationEntryPoint(unauthorizedEntryPoint)
+                        .accessDeniedHandler((request, response, accessDeniedException) -> {
+                            response.setStatus(HttpStatus.FORBIDDEN.value());
+                            response.setContentType("application/json");
+                            response.getWriter().write(
+                                    "{\"status\":403,\"error\":\"FORBIDDEN\",\"message\":\"Access denied\"}");
+                        }))
                 .authorizeHttpRequests(authorize -> authorize
-
                         .requestMatchers(
                                 "/actuator/health",
                                 "/actuator/info",
                                 "/error"
                         ).permitAll()
-
-                        .requestMatchers(
-                                HttpMethod.GET,
-                                "/api/pois",
-                                "/api/pois/**"
-                        ).hasAnyRole("USER", "ADMIN")
-
-                        .requestMatchers(
-                                HttpMethod.POST,
-                                "/api/pois"
-                        ).hasRole("ADMIN")
-
-                        .requestMatchers(
-                                HttpMethod.PUT,
-                                "/api/pois/**"
-                        ).hasRole("ADMIN")
-
-                        .requestMatchers(
-                                HttpMethod.DELETE,
-                                "/api/pois/**"
-                        ).hasRole("ADMIN")
-
-                        .anyRequest().authenticated()
-                )
-
-                .addFilterBefore(
-                        jwtAuthenticationFilter,
-                        UsernamePasswordAuthenticationFilter.class
-                );
+                        .requestMatchers(HttpMethod.POST, "/api/analytics/events").permitAll()
+                        .requestMatchers("/api/analytics/admin/**", "/api/admin/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/pois", "/api/pois/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/pois").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/pois/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/pois/**").hasRole("ADMIN")
+                        .anyRequest().authenticated())
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
