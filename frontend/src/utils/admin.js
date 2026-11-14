@@ -9,10 +9,7 @@ export function pageSlice(rows, requestedPage, size = PAGE_SIZE) {
         from: rows.length ? start + 1 : 0, to: Math.min(start + size, rows.length) };
 }
 
-export function normalizeSearch(value) {
-    return String(value ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "")
-        .replace(/đ/gi, "d").toLowerCase().trim();
-}
+export { normalizeSearch } from "./search";
 
 export function validCoordinates(latitude, longitude) {
     if ([latitude, longitude].some((value) => value == null || String(value).trim() === "")) return false;
