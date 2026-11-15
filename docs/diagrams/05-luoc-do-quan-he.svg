@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1380" height="935" viewBox="0 0 1380 935" role="img"><title>Lược đồ quan hệ MySQL</title>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#225f90"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="36" y="49" font-size="31" text-anchor="start" font-weight="750" fill="#26374d">Lược đồ quan hệ MySQL</text>
+<text x="37" y="80" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Năm bảng nghiệp vụ • khóa chính, khóa duy nhất và cột tham chiếu</text>
+<rect x="36" y="112" width="340" height="170" rx="12" fill="#f6fbff" stroke="#225f90" stroke-width="2"/>
+<rect x="36" y="112" width="340" height="42" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="50" y="139" font-size="17" text-anchor="start" font-weight="700" fill="#26374d">identity_db.users</text>
+<text x="50" y="175" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">id PK</text>
+<text x="50" y="200" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">email UQ</text>
+<text x="50" y="225" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">full_name</text>
+<text x="50" y="250" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">password (hash)</text>
+<text x="50" y="275" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">role</text>
+<rect x="36" y="344" width="340" height="345" rx="12" fill="#f6fbff" stroke="#225f90" stroke-width="2"/>
+<rect x="36" y="344" width="340" height="42" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="50" y="371" font-size="17" text-anchor="start" font-weight="700" fill="#26374d">poi_db.pois</text>
+<text x="50" y="407" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">id PK</text>
+<text x="50" y="432" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">name</text>
+<text x="50" y="457" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">description</text>
+<text x="50" y="482" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">latitude</text>
+<text x="50" y="507" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">longitude</text>
+<text x="50" y="532" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">radius</text>
+<text x="50" y="557" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">qr_code UQ</text>
+<text x="50" y="582" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">image_url</text>
+<text x="50" y="607" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">status</text>
+<text x="50" y="632" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">category †</text>
+<text x="50" y="657" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">created_at</text>
+<text x="50" y="682" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">updated_at</text>
+<rect x="530" y="112" width="355" height="245" rx="12" fill="#f6fbff" stroke="#225f90" stroke-width="2"/>
+<rect x="530" y="112" width="355" height="42" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="544" y="139" font-size="17" text-anchor="start" font-weight="700" fill="#26374d">localization_db.poi_localizations</text>
+<text x="544" y="175" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">id PK</text>
+<text x="544" y="200" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">poi_id L</text>
+<text x="544" y="225" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">language_code</text>
+<text x="544" y="250" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">localized_name</text>
+<text x="544" y="275" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">localized_description</text>
+<text x="544" y="300" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">created_at</text>
+<text x="544" y="325" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">updated_at</text>
+<text x="544" y="350" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">UQ (poi_id, language_code)</text>
+<rect x="989" y="112" width="355" height="245" rx="12" fill="#f6fbff" stroke="#225f90" stroke-width="2"/>
+<rect x="989" y="112" width="355" height="42" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="1003" y="139" font-size="17" text-anchor="start" font-weight="700" fill="#26374d">audio_db.audio</text>
+<text x="1003" y="175" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">id PK</text>
+<text x="1003" y="200" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">poi_id L</text>
+<text x="1003" y="225" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">language_code</text>
+<text x="1003" y="250" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">audio_url</text>
+<text x="1003" y="275" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">duration_seconds</text>
+<text x="1003" y="300" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">created_at</text>
+<text x="1003" y="325" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">updated_at</text>
+<text x="1003" y="350" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">UQ (poi_id, language_code)</text>
+<rect x="989" y="462" width="355" height="320" rx="12" fill="#f6fbff" stroke="#225f90" stroke-width="2"/>
+<rect x="989" y="462" width="355" height="42" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="1003" y="489" font-size="17" text-anchor="start" font-weight="700" fill="#26374d">poi_db.analytics_events</text>
+<text x="1003" y="525" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">id PK</text>
+<text x="1003" y="550" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">event_type</text>
+<text x="1003" y="575" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">visitor_id</text>
+<text x="1003" y="600" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">session_id</text>
+<text x="1003" y="625" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">poi_id L, NULL</text>
+<text x="1003" y="650" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">page_path</text>
+<text x="1003" y="675" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">source</text>
+<text x="1003" y="700" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">created_at</text>
+<text x="1003" y="725" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">device_id †, device_type †</text>
+<text x="1003" y="750" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">device_name †, platform †</text>
+<text x="1003" y="775" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">browser_name †</text>
+<path d="M376 400H458V208H530" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
+<path d="M376 413H474V430H952V208H989" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
+<path d="M376 426H446V609H989" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
+<text x="483" y="421" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">pois.id → audio.poi_id</text>
+<text x="494" y="598" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">pois.id → analytics_events.poi_id (có thể NULL)</text>
+<text x="36" y="845" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">PK: khóa chính  •  UQ: khóa duy nhất  •  L: tham chiếu logic  •  †: cột bổ sung qua migration/entity</text>
+<text x="36" y="875" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Bảng kỹ thuật ngoài mô hình nghiệp vụ: pois_backup_20261013, schema_migrations và timestamp_normalization_audit.</text>
+<text x="36" y="905" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Mũi tên nét đứt từ pois.id cho biết cột đối chiếu; các quan hệ này không được MySQL áp ràng buộc FK trong DDL bàn giao.</text>
+</g></svg>

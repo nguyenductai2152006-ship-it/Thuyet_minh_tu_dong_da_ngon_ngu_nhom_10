@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1320" height="680" viewBox="0 0 1320 680" role="img"><title>ERD nghiệp vụ</title>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#225f90"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="36" y="49" font-size="31" text-anchor="start" font-weight="750" fill="#26374d">ERD nghiệp vụ</text>
+<text x="37" y="80" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Bội số nghiệp vụ của POI và các nội dung liên quan</text>
+<rect x="35" y="126" width="330" height="76" rx="12" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<path d="M47 126v76" stroke="#225f90" stroke-width="2"/>
+<text x="200" y="155" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Tài khoản</text>
+<text x="200" y="180" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">users • email, vai trò</text>
+<rect x="35" y="317" width="330" height="76" rx="12" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<path d="M47 317v76" stroke="#225f90" stroke-width="2"/>
+<text x="200" y="346" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Địa điểm POI</text>
+<text x="200" y="371" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">pois • mã QR, tọa độ, bán kính</text>
+<rect x="900" y="144" width="385" height="76" rx="12" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<path d="M912 144v76" stroke="#225f90" stroke-width="2"/>
+<text x="1092.5" y="173" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Bản dịch</text>
+<text x="1092.5" y="198" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">poi_localizations • POI + ngôn ngữ</text>
+<rect x="900" y="317" width="385" height="76" rx="12" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<path d="M912 317v76" stroke="#225f90" stroke-width="2"/>
+<text x="1092.5" y="346" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Audio</text>
+<text x="1092.5" y="371" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">audio • POI + ngôn ngữ</text>
+<rect x="900" y="490" width="385" height="76" rx="12" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<path d="M912 490v76" stroke="#225f90" stroke-width="2"/>
+<text x="1092.5" y="519" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Sự kiện sử dụng</text>
+<text x="1092.5" y="544" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">analytics_events • phiên, loại sự kiện</text>
+<path d="M365 334H560V182H900" fill="none" stroke="#225f90" stroke-width="2"  stroke-dasharray="7 5"/>
+<path d="M365 354H900" fill="none" stroke="#225f90" stroke-width="2"  stroke-dasharray="7 5"/>
+<path d="M365 375H560V528H900" fill="none" stroke="#225f90" stroke-width="2"  stroke-dasharray="7 5"/>
+<text x="378" y="322" font-size="18" text-anchor="start" font-weight="700" fill="#26374d">1</text>
+<text x="842" y="173" font-size="18" text-anchor="start" font-weight="700" fill="#26374d">0..N</text>
+<text x="378" y="349" font-size="18" text-anchor="start" font-weight="700" fill="#26374d">1</text>
+<text x="842" y="345" font-size="18" text-anchor="start" font-weight="700" fill="#26374d">0..N</text>
+<text x="378" y="399" font-size="18" text-anchor="start" font-weight="700" fill="#26374d">0..1</text>
+<text x="842" y="519" font-size="18" text-anchor="start" font-weight="700" fill="#26374d">0..N</text>
+<text x="619" y="171" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Có bản dịch</text>
+<text x="614" y="344" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Có audio</text>
+<text x="612" y="516" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Có thể được ghi nhận</text>
+<text x="35" y="620" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Nét đứt biểu diễn tham chiếu nghiệp vụ theo poi_id. DDL bàn giao không khai báo FOREIGN KEY cho ba liên kết này.</text>
+<text x="35" y="648" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Tài khoản có vai trò truy cập ở tầng ứng dụng. visitor_id và session_id là định danh theo dõi, không nối với users.</text>
+</g></svg>
