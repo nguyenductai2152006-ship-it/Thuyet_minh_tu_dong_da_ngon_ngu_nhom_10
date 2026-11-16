@@ -152,6 +152,11 @@ diagram('03-dfd-phan-ra', 'DFD phân rã tiến trình 0', 'Tác nhân hình ch�
     line('M704 891V940H250');
     label(399, 901, 'JWT và yêu cầu thống kê', { anchor: 'middle', size: 14 });
     label(399, 960, 'Kết quả thống kê', { anchor: 'middle', size: 14 });
+    dfdStore(1210, 901, 235, 43, 'D2', 'pois');
+    line(`M${edges[5](876, 1)} 876H898V912H1202`);
+    line(`M1202 933H866V889H${edges[5](889, 1)}`);
+    label(1050, 905, 'Kiểm tra poiId nếu có', { anchor: 'middle', size: 13 });
+    label(1050, 951, 'Kết quả kiểm tra tồn tại', { anchor: 'middle', size: 13 });
     label(36, 976, 'Tiến trình 2 hoặc 4 cung cấp ID POI cho tiến trình 3 khi khách chọn điểm hoặc GPS kích hoạt.', { size: 16 });
     label(36, 1004, 'Tiến trình 5 dùng lại D2, D3 và D4. Các thao tác ghi cần quyền quản trị.', { size: 16 });
     label(36, 1032, 'Tiến trình 3 lấy media qua URL. Nginx phục vụ tệp nội bộ và trình duyệt thực hiện TTS dự phòng.', { size: 16 });
@@ -197,9 +202,10 @@ diagram('05-luoc-do-quan-he', 'Lược đồ quan hệ MySQL', 'Năm bảng nghi
     table(530, 112, 355, data.loc);
     table(989, 112, 355, data.audio);
     table(989, 462, 355, data.events);
-    line('M376 400H458V208H530', { dashed: true });
-    line('M376 413H474V430H952V208H989', { dashed: true });
-    line('M376 426H446V609H989', { dashed: true });
+    line('M376 401H430', { arrow: false, dashed: true });
+    line('M430 401H458V193H530', { dashed: true });
+    line('M430 401H474V430H952V193H989', { dashed: true });
+    line('M430 401V620H989', { dashed: true });
     label(483, 421, 'pois.id → audio.poi_id', { size: 15 });
     label(494, 598, 'pois.id → analytics_events.poi_id (có thể NULL)', { size: 15 });
     label(36, 845, 'PK: khóa chính  •  UQ: khóa duy nhất  •  L: tham chiếu logic  •  †: cột bổ sung qua migration/entity', { size: 16 });

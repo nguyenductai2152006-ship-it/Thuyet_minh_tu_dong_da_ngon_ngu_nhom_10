@@ -63,9 +63,10 @@
 <text x="1003" y="725" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">device_id †, device_type †</text>
 <text x="1003" y="750" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">device_name †, platform †</text>
 <text x="1003" y="775" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">browser_name †</text>
-<path d="M376 400H458V208H530" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
-<path d="M376 413H474V430H952V208H989" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
-<path d="M376 426H446V609H989" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
+<path d="M376 401H430" fill="none" stroke="#225f90" stroke-width="2"  stroke-dasharray="7 5"/>
+<path d="M430 401H458V193H530" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
+<path d="M430 401H474V430H952V193H989" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
+<path d="M430 401V620H989" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
 <text x="483" y="421" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">pois.id → audio.poi_id</text>
 <text x="494" y="598" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">pois.id → analytics_events.poi_id (có thể NULL)</text>
 <text x="36" y="845" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">PK: khóa chính  •  UQ: khóa duy nhất  •  L: tham chiếu logic  •  †: cột bổ sung qua migration/entity</text>

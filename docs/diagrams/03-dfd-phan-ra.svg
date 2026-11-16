@@ -141,6 +141,13 @@
 <path d="M704 891V940H250" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
 <text x="399" y="901" font-size="14" text-anchor="middle" font-weight="400" fill="#26374d">JWT và yêu cầu thống kê</text>
 <text x="399" y="960" font-size="14" text-anchor="middle" font-weight="400" fill="#26374d">Kết quả thống kê</text>
+<path d="M1210 901H1445 Q1427 922.5 1445 944H1210 Q1192 922.5 1210 901Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="927.5" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D2</text>
+<text x="1259" y="927.5" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">pois</text>
+<path d="M776 876H898V912H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 933H866V889H765" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="1050" y="905" font-size="13" text-anchor="middle" font-weight="400" fill="#26374d">Kiểm tra poiId nếu có</text>
+<text x="1050" y="951" font-size="13" text-anchor="middle" font-weight="400" fill="#26374d">Kết quả kiểm tra tồn tại</text>
 <text x="36" y="976" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Tiến trình 2 hoặc 4 cung cấp ID POI cho tiến trình 3 khi khách chọn điểm hoặc GPS kích hoạt.</text>
 <text x="36" y="1004" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Tiến trình 5 dùng lại D2, D3 và D4. Các thao tác ghi cần quyền quản trị.</text>
 <text x="36" y="1032" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Tiến trình 3 lấy media qua URL. Nginx phục vụ tệp nội bộ và trình duyệt thực hiện TTS dự phòng.</text>
