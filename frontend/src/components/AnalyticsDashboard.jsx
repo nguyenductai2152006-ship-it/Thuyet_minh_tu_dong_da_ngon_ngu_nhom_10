@@ -116,7 +116,7 @@ export default function AnalyticsDashboard() {
 
   useEffect(() => {
     mountedRef.current = true;
-    void load();
+    const initialLoad = window.setTimeout(() => void load(), 0);
 
     const timer = window.setInterval(() => {
       // Skip background polling when the tab is hidden; refresh on the next visible tick.
@@ -130,6 +130,7 @@ export default function AnalyticsDashboard() {
 
     return () => {
       mountedRef.current = false;
+      window.clearTimeout(initialLoad);
       window.clearInterval(timer);
       document.removeEventListener("visibilitychange", handleVisible);
     };

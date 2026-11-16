@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import "./AudioPlayerCard.css";
+import { trackAnalytics } from "../api/analytics";
 import GoogleMapsDirections from "./GoogleMapsDirections";
 import { getPoiDisplayName } from "../utils/googleMaps";
 
@@ -14,7 +15,7 @@ function formatTime(time) {
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`;
 }
 
-function AudioPlayerCard({
+function AudioPlayerCardContent({
     poi,
     localization,
     audio,
@@ -25,14 +26,17 @@ function AudioPlayerCard({
     isSpeaking = false,
     autoPlayRequested = false,
     onAutoPlayHandled,
+    analyticsSource = "audio_file",
 }) {
     const audioRef = useRef(null);
+    const trackedPlayback = useRef(false);
     const [isPlaying, setIsPlaying] = useState(false);
     const [progress, setProgress] = useState(0);
     const [currentTime, setCurrentTime] = useState(0);
     const [duration, setDuration] = useState(Number(audio?.durationSeconds) || 0);
     const [imageError, setImageError] = useState(false);
     const [playError, setPlayError] = useState("");
+    const [mediaFailed,setMediaFailed]=useState(false);
 
     // Accept an absolute HTTP(S) URL or a local MP3 under frontend/public/audio.
     const audioUrl = typeof audio?.audioUrl === "string" ? audio.audioUrl.trim() : "";
@@ -49,25 +53,6 @@ function AudioPlayerCard({
         localization?.localizedName
     );
     const description = localization?.localizedDescription || poi?.description || "";
-
-    // Reset the player when the selected POI/language returns a different audio URL.
-    useEffect(() => {
-        setIsPlaying(false);
-        setProgress(0);
-        setCurrentTime(0);
-        setDuration(Number(audio?.durationSeconds) || 0);
-        setPlayError("");
-
-        const player = audioRef.current;
-        if (player) {
-            player.pause();
-            if (hasRealAudio) player.load();
-        }
-    }, [audioUrl, audio?.durationSeconds, hasRealAudio]);
-
-    useEffect(() => {
-        setImageError(false);
-    }, [poi?.imageUrl, poi?.id]);
 
     // Try to autoplay real audio once the selected POI has loaded.
     // Browsers can block playback after asynchronous work; in that case the manual
@@ -97,6 +82,7 @@ function AudioPlayerCard({
                 if (error?.name === "NotAllowedError") {
                     setPlayError("Trình duyệt chặn tự phát âm thanh. Hãy nhấn nút Play để nghe.");
                 } else {
+                    setMediaFailed(true);
                     setPlayError("Không phát được tệp âm thanh. Hãy nhấn Play để thử lại hoặc kiểm tra URL audio.");
                 }
             } finally {
@@ -107,6 +93,7 @@ function AudioPlayerCard({
         const handleMediaError = () => {
             if (cancelled || attempted) return;
             attempted = true;
+            setMediaFailed(true);
             setPlayError("Không tải được tệp âm thanh. Hãy kiểm tra URL audio hoặc thử giọng đọc trình duyệt.");
             onAutoPlayHandled?.();
         };
@@ -144,8 +131,10 @@ function AudioPlayerCard({
 
         try {
             setPlayError("");
+            onStopSpeaking?.();
             await player.play();
         } catch (error) {
+            if(error?.name!=="NotAllowedError")setMediaFailed(true);
             console.error("Không thể phát tệp âm thanh:", error);
             setPlayError(
                 error?.name === "NotAllowedError"
@@ -219,13 +208,21 @@ function AudioPlayerCard({
                             onTimeUpdate={handleTimeUpdate}
                             onLoadedMetadata={handleTimeUpdate}
                             onDurationChange={handleTimeUpdate}
-                            onPlay={() => setIsPlaying(true)}
+                            onPlay={() => {
+                                onStopSpeaking?.();
+                                setIsPlaying(true);
+                                if (!trackedPlayback.current && poi?.id != null) {
+                                    trackedPlayback.current = true;
+                                    void trackAnalytics("audio_play", { poiId: poi.id, source: analyticsSource });
+                                }
+                            }}
                             onPause={() => setIsPlaying(false)}
                             onEnded={() => {
                                 setIsPlaying(false);
                                 setProgress(100);
                             }}
                             onError={() => {
+                                setMediaFailed(true);
                                 setIsPlaying(false);
                                 setPlayError("Không thể tải tệp âm thanh này.");
                             }}
@@ -259,6 +256,11 @@ function AudioPlayerCard({
                         </div>
 
                         {playError && <p className="player-error" role="alert">{playError}</p>}
+                        {mediaFailed && <div className="speech-controls">
+                         <button type="button" onClick={()=>{onStopSpeaking?.();audioRef.current?.load();void togglePlayPause();}}>Thử lại audio</button>
+                         <button type="button" onClick={()=>{audioRef.current?.pause();onSpeak?.();}}>Dùng giọng trình duyệt</button>
+                         {isSpeaking && <button type="button" onClick={onStopSpeaking}>Dừng đọc</button>}
+                        </div>}
                     </div>
                 ) : (
                     <div className="no-audio-alert">
@@ -291,4 +293,10 @@ function AudioPlayerCard({
     );
 }
 
-export default AudioPlayerCard;
+// A different recording is a different player session. Remounting gives it
+// fresh controls and tracking, and the old session's cleanup pauses its audio.
+export default function AudioPlayerCard(props) {
+    const key = JSON.stringify([props.poi?.id, props.poi?.imageUrl, props.selectedLanguage?.code,
+        props.audio?.audioUrl, props.audio?.durationSeconds]);
+    return <AudioPlayerCardContent key={key} {...props} />;
+}

@@ -1,0 +1,80 @@
+/* HoiAnGuide – shared typography and warm Hội An palette */
+:root {
+    --guide-font: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: Inter, "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    color: #382d20;
+    background: #eee7db;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    --hoi-gold: #e2a11b;
+    --hoi-gold-hover: #c88912;
+    --hoi-gold-dark: #82550d;
+    --hoi-gold-soft: #fff3d4;
+    --hoi-gold-wash: #fffaed;
+    --hoi-ink: #382d20;
+    --hoi-muted: #756858;
+    --hoi-surface: #fffdf8;
+    --hoi-page: #fffaf1;
+    --hoi-border: #e6dcc9;
+    --hoi-border-strong: #d7c39e;
+    --hoi-success: #39724d;
+    --hoi-success-soft: #edf6ee;
+    --hoi-danger: #a83c32;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 320px;
+    min-height: 100vh;
+}
+
+body {
+    background: #eee7db;
+    color: var(--hoi-ink);
+    font-family: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button,
+a,
+input,
+select,
+textarea {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid rgba(196, 134, 17, .35);
+    outline-offset: 2px;
+}
+
+#root {
+    margin: 0;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
