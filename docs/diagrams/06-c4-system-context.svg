@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="520" viewBox="0 0 1200 520" role="img"><title>C4 mức 1 — Ngữ cảnh hệ thống</title>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#225f90"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="36" y="49" font-size="31" text-anchor="start" font-weight="750" fill="#26374d">C4 mức 1 — Ngữ cảnh hệ thống</text>
+<text x="37" y="80" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Người dùng và hệ thống bên ngoài</text>
+<rect x="80" y="130" width="310" height="78" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="235" y="159" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Khách tham quan</text>
+<text x="235" y="184" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Quét QR, xem bản đồ, nghe thuyết minh</text>
+<rect x="810" y="130" width="310" height="78" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="965" y="159" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Quản trị viên</text>
+<text x="965" y="184" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Quản lý nội dung và xem thống kê</text>
+<rect x="350" y="263" width="500" height="78" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="600" y="292" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Hệ thống thuyết minh tự động đa ngôn ngữ</text>
+<text x="600" y="317" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Cung cấp nội dung tại các điểm tham quan Hội An</text>
+<path d="M235 208V238H470V263" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M965 208V238H730V263" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="350" y="411" width="500" height="78" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="600" y="440" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Dịch vụ bản đồ bên ngoài</text>
+<text x="600" y="465" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Esri/OpenStreetMap cung cấp ô bản đồ • Google Maps chỉ đường</text>
+<path d="M600 341V411" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="615" y="383" font-size="14" text-anchor="start" font-weight="400" fill="#26374d">Trình duyệt tải bản đồ hoặc mở chỉ đường</text>
+</g></svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="530" viewBox="0 0 1240 530" role="img"><title>C4 mức 4 — Mã nguồn Analytics</title>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#225f90"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="36" y="49" font-size="31" text-anchor="start" font-weight="750" fill="#26374d">C4 mức 4 — Mã nguồn Analytics</text>
+<text x="37" y="80" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Phóng to thành phần ghi nhận và tổng hợp trong POI Service</text>
+<rect x="70" y="125" width="360" height="89" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="250" y="154" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">AnalyticsController</text>
+<text x="250" y="179" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">recordEvent(request) · getSummary()</text>
+<rect x="485" y="125" width="325" height="89" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="647.5" y="154" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">AnalyticsService</text>
+<text x="647.5" y="179" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">record(request) · getSummary()</text>
+<rect x="865" y="125" width="330" height="89" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="1030" y="154" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">AnalyticsEventRepository</text>
+<text x="1030" y="179" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Lưu và truy vấn sự kiện</text>
+<path d="M430 168H485" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M810 168H865" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="70" y="344" width="360" height="80" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="250" y="373" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">AnalyticsEventRequest</text>
+<text x="250" y="398" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">DTO nhận sự kiện từ frontend</text>
+<rect x="485" y="344" width="325" height="80" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="647.5" y="373" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">PoiRepository</text>
+<text x="647.5" y="398" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Đọc dữ liệu POI khi cần</text>
+<rect x="865" y="344" width="330" height="80" rx="12" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<path d="M877 344v80" stroke="#225f90" stroke-width="2"/>
+<text x="1030" y="373" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">AnalyticsEvent</text>
+<text x="1030" y="398" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Entity của bảng analytics_events</text>
+<path d="M250 214V344" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
+<path d="M648 214V344" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
+<path d="M1030 214V344" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="7 5"/>
+<text x="262" y="289" font-size="14" text-anchor="start" font-weight="400" fill="#26374d">Nhận và kiểm tra DTO</text>
+<text x="660" y="289" font-size="14" text-anchor="start" font-weight="400" fill="#26374d">Tra cứu POI</text>
+<text x="1042" y="289" font-size="14" text-anchor="start" font-weight="400" fill="#26374d">Ánh xạ JPA</text>
+<text x="36" y="487" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Các lớp thuộc poi-service/src/main/java/com/sgu/poi/analytics, riêng PoiRepository thuộc gói repository.</text>
+</g></svg>
