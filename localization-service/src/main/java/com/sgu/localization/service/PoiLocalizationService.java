@@ -17,12 +17,18 @@ import java.util.List;
 public class PoiLocalizationService {
 
     private final PoiLocalizationRepository repository;
+    private final PoiReferenceValidator poiValidator;
+    private final PoiMutationLock mutationLock;
 
-    public PoiLocalizationService(PoiLocalizationRepository repository) {
+    public PoiLocalizationService(PoiLocalizationRepository repository, PoiReferenceValidator poiValidator, PoiMutationLock mutationLock) {
         this.repository = repository;
+        this.poiValidator = poiValidator;
+        this.mutationLock = mutationLock;
     }
 
     public LocalizationResponse create(CreateLocalizationRequest request) {
+        mutationLock.acquire(request.getPoiId());
+        poiValidator.requireExisting(request.getPoiId());
         String languageCode = normalizeLanguageCode(request.getLanguageCode());
 
         if (repository.existsByPoiIdAndLanguageCode(
@@ -59,6 +65,7 @@ public class PoiLocalizationService {
                         )
                 );
 
+        poiValidator.requireReadable(entity.getPoiId());
         return LocalizationResponse.fromEntity(entity);
     }
 
@@ -83,11 +90,13 @@ public class PoiLocalizationService {
                         )
                 );
 
+        poiValidator.requireReadable(entity.getPoiId());
         return LocalizationResponse.fromEntity(entity);
     }
 
     @Transactional(readOnly = true)
     public List<LocalizationResponse> findByPoiId(Long poiId) {
+        poiValidator.requireReadable(poiId);
         return repository.findByPoiIdOrderByLanguageCodeAsc(poiId)
                 .stream()
                 .map(LocalizationResponse::fromEntity)
@@ -105,6 +114,8 @@ public class PoiLocalizationService {
                         )
                 );
 
+        mutationLock.acquire(entity.getPoiId());
+        poiValidator.requireExisting(entity.getPoiId());
         String languageCode =
                 normalizeLanguageCode(request.getLanguageCode());
 
@@ -141,10 +152,11 @@ public class PoiLocalizationService {
                         )
                 );
 
+        mutationLock.acquire(entity.getPoiId());
         repository.delete(entity);
     }
 
     private String normalizeLanguageCode(String languageCode) {
-        return languageCode.trim().toLowerCase();
+        return languageCode.trim().toLowerCase(java.util.Locale.ROOT);
     }
 }
