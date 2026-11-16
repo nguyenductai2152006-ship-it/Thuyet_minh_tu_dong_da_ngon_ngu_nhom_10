@@ -1,0 +1,22 @@
+// @vitest-environment jsdom
+import {afterEach,beforeEach,expect,it,vi} from 'vitest';
+import {act,cleanup,fireEvent,render,renderHook,screen} from '@testing-library/react';
+import {parseQrCode} from '../utils/qr';
+import {isConfidentlyInside} from '../utils/geofence';
+import {getGoogleMapsDirectionsUrl,getPoiDisplayName} from '../utils/googleMaps';
+import {useGeoNarration} from '../hooks/useGeoNarration';
+import QrScanner from '../components/QrScanner';
+import AudioPlayerCard from '../components/AudioPlayerCard';
+const state=vi.hoisted(()=>({decode:null}));
+vi.mock('html5-qrcode',()=>({Html5QrcodeScanner:class{render(fn){state.decode=fn}clear(){return Promise.resolve()}}}));
+vi.mock('../api/analytics',()=>({trackAnalytics:vi.fn()}));
+vi.mock('../components/GoogleMapsDirections',()=>({default:()=>null}));
+beforeEach(()=>{vi.spyOn(HTMLMediaElement.prototype,'pause').mockImplementation(()=>{});vi.spyOn(HTMLMediaElement.prototype,'load').mockImplementation(()=>{});Object.defineProperty(window,'isSecureContext',{value:true,configurable:true});});
+afterEach(()=>{cleanup();vi.restoreAllMocks();});
+it.each([['QR3','QR3'],['https://example.org/?qr=QR%2525','QR%25'],['https://example.org/poi/QR%2525','QR%25'],['https://example.org/poi/QR3','QR3'],['https://example.org/?qr=QR3','QR3'],['/poi/QR3','QR3'],['https://example.org/?source=qr',null],['javascript:alert(1)',null],['has space',null],['/poi/%ZZ',null]])('parses QR %s',(a,b)=>expect(parseQrCode(a)).toBe(b));
+it('rejects uncertain GPS',()=>{expect(isConfidentlyInside(0,1000,30)).toBe(false);expect(isConfidentlyInside(10,20,30)).toBe(true);expect(isConfidentlyInside(10,0,30)).toBe(false);expect(isConfidentlyInside(10,NaN,30)).toBe(false);});
+it('uses managed names and coordinates',()=>{const poi={id:5,name:'Tên mới',latitude:10,longitude:106};expect(getPoiDisplayName(poi,'vi','Bản dịch mới')).toBe('Bản dịch mới');expect(new URL(getGoogleMapsDirectionsUrl(poi)).searchParams.get('destination')).toBe('10,106');expect(new URL(getGoogleMapsDirectionsUrl({name:'New'})).searchParams.get('destination')).toContain('New');});
+it('retries QR after rejection and consumes success',async()=>{const accept=vi.fn().mockResolvedValueOnce(false).mockResolvedValueOnce(true);render(<QrScanner onScanSuccess={accept}/>);for(const value of ['wrong','valid','another'])await act(async()=>{await state.decode(value)});expect(accept.mock.calls.map(x=>x[0])).toEqual(['wrong','valid']);});
+it('prevents concurrent camera lookups',async()=>{let finish;const accept=vi.fn(()=>new Promise(resolve=>{finish=resolve}));render(<QrScanner onScanSuccess={accept}/>);let pending;act(()=>{pending=state.decode('first')});await act(async()=>{await state.decode('second')});expect(accept).toHaveBeenCalledTimes(1);await act(async()=>{finish(false);await pending});});
+it('retries GPS only until entry is acknowledged and stops the watch',async()=>{let fix;const clearWatch=vi.fn();Object.defineProperty(navigator,'geolocation',{configurable:true,value:{watchPosition:vi.fn(cb=>{fix=cb;return 7}),clearWatch}});const accept=vi.fn().mockResolvedValueOnce(false).mockResolvedValueOnce(true);const pois=[{id:3,qrCode:'QR3',status:'ACTIVE',latitude:15,longitude:108,radius:30}];const {result}=renderHook(()=>useGeoNarration({pois,onEnterPoi:accept}));await act(async()=>{await fix({coords:{latitude:15,longitude:108,accuracy:1000}})});expect(accept).not.toHaveBeenCalled();for(let i=0;i<3;i++)await act(async()=>{await fix({coords:{latitude:15,longitude:108,accuracy:5}})});expect(accept).toHaveBeenCalledTimes(2);act(()=>result.current.stop());expect(clearWatch).toHaveBeenCalledWith(7);});
+it('offers TTS and pauses audio after media failure',()=>{const speak=vi.fn();const {container}=render(<AudioPlayerCard poi={{id:3,name:'POI',description:'Text'}} audio={{audioUrl:'/audio/missing.mp3',durationSeconds:0}} onSpeak={speak}/>);expect(screen.queryByRole('button',{name:'Dùng giọng trình duyệt'})).toBeNull();fireEvent.error(container.querySelector('audio'));fireEvent.click(screen.getByRole('button',{name:'Dùng giọng trình duyệt'}));expect(speak).toHaveBeenCalledTimes(1);expect(HTMLMediaElement.prototype.pause).toHaveBeenCalled();expect(screen.getByRole('button',{name:'Thử lại audio'})).toBeTruthy();});

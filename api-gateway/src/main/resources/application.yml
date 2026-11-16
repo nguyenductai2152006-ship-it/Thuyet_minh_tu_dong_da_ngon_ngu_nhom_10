@@ -19,7 +19,7 @@ spring:
             - id: poi-service
               uri: http://poi-service:8081
               predicates:
-                - Path=/api/pois/**
+                - Path=/api/pois/**,/api/admin/pois/**
 
             # Analytics được xử lý bên trong poi-service
             - id: analytics-service
