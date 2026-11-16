@@ -156,24 +156,28 @@ export default function AdminDashboard({ onDataChanged }) {
             const localizationResults = await Promise.allSettled(
                 poiList.map(async (poi) => ({ poiId: poi.id, data: await getLocalizationsForPoi(poi.id) }))
             );
-            const localizationRows = localizationResults.flatMap((result) => {
-                if (result.status !== "fulfilled") return [];
-                return rowsFrom(result.value.data, result.value.poiId);
-            });
             if (version !== contentVersion.current) return;
-            setLocalizations(localizationRows);
+            // Keep the last known rows for failed POIs. A failed GET must not
+            // look like a successful deletion of their existing content.
+            const mergeRows = (oldRows, results) => poiList.flatMap((poi, index) => {
+                const result = results[index];
+                return result.status === "fulfilled"
+                    ? rowsFrom(result.value.data, poi.id)
+                    : oldRows.filter((row) => Number(row.poiId) === Number(poi.id));
+            });
+            setLocalizations((oldRows) => mergeRows(oldRows, localizationResults));
 
             const audioResults = await Promise.allSettled(
                 poiList.map(async (poi) => ({ poiId: poi.id, data: await getAudiosForPoi(poi.id) }))
             );
-            const audioRows = audioResults.flatMap((result) => {
-                if (result.status !== "fulfilled") return [];
-                return rowsFrom(result.value.data, result.value.poiId);
-            });
             if (version !== contentVersion.current) return;
-            setAudios(audioRows);
+            setAudios((oldRows) => mergeRows(oldRows, audioResults));
             const failures = [...localizationResults, ...audioResults].filter((item) => item.status === "rejected");
-            if (failures.length) setContentError(`Có ${failures.length} yêu cầu nội dung thất bại. Số lượng bên dưới chưa đầy đủ. ${messageFromError(failures[0].reason)}`);
+            if (failures.length) {
+                const message = `Có ${failures.length} yêu cầu nội dung thất bại. Số lượng bên dưới chưa đầy đủ hoặc còn dữ liệu cũ. Hãy làm mới. ${messageFromError(failures[0].reason)}`;
+                setContentError(message);
+                throw new Error(message);
+            }
         } finally {
             if (version === contentVersion.current) setContentLoading(false);
         }
@@ -269,7 +273,9 @@ export default function AdminDashboard({ onDataChanged }) {
             return true;
         } catch (mutationError) {
             setError(committed ? `Thay đổi đã được API chấp nhận nhưng tải lại dữ liệu thất bại. Hãy làm mới trước khi thao tác lại. ${messageFromError(mutationError)}` : !mutationError.response ? `Không xác nhận được kết quả do lỗi mạng. Hãy làm mới và kiểm tra dữ liệu trước khi thử lại. ${messageFromError(mutationError)}` : `Không thể lưu thay đổi: ${messageFromError(mutationError)}`);
-            return false;
+            // Close a committed editor even if refreshing fails, so the same
+            // POST cannot be submitted a second time by pressing Save again.
+            return committed;
         } finally {
             mutationFlight.current = false;
             setSaving(false);
@@ -551,7 +557,7 @@ export default function AdminDashboard({ onDataChanged }) {
                                 <Field label="Bán kính GPS (m) *"><input required type="number" min="1" max="5000" step="0.01" value={poiForm.radius} onChange={(event) => setPoiForm({ ...poiForm, radius: event.target.value })} /></Field>
                                 <Field label="Trạng thái"><select value={poiForm.status} onChange={(event) => setPoiForm({ ...poiForm, status: event.target.value })}><option value="ACTIVE">ACTIVE — hiển thị công khai</option><option value="INACTIVE">INACTIVE — tạm ẩn</option></select></Field>
                                 <div className="hag-form-span-2"><Field label="Ảnh địa điểm" hint="Đường dẫn /Images/... hoặc URL HTTP/HTTPS, tối đa 500 ký tự."><input maxLength={500} value={poiForm.imageUrl} onChange={(event) => setPoiForm({ ...poiForm, imageUrl: event.target.value })} /></Field></div>
-                                <div className="hag-form-span-2"><Field label="Mô tả *"><textarea required rows="3" maxLength={5000} value={poiForm.description} onChange={(event) => setPoiForm({ ...poiForm, description: event.target.value })} placeholder="Giới thiệu ngắn về địa điểm…" /></Field></div>
+                                <div className="hag-form-span-2"><Field label="Mô tả *"><textarea required rows="3" maxLength={10000} value={poiForm.description} onChange={(event) => setPoiForm({ ...poiForm, description: event.target.value })} placeholder="Giới thiệu ngắn về địa điểm…" /></Field></div>
                             </fieldset>
                             <div className="hag-form-actions"><button type="button" className="hag-btn hag-btn--soft" onClick={() => setPoiEditor(null)} disabled={saving}>Hủy</button><button type="submit" className="hag-btn hag-btn--primary" disabled={saving}>{saving ? "Đang lưu…" : "Lưu vào database"}</button></div>
                         </form>
@@ -589,10 +595,15 @@ export default function AdminDashboard({ onDataChanged }) {
                     <div className="hag-stat-grid hag-stat-grid--monitor">
                         <StatCard label="Tổng lượt xem trang" value={monitorSummary?.pageViews ?? "—"} detail="COUNT(page_view) · toàn thời gian" icon="⌁" tone="blue" />
                         <StatCard label="Khách truy cập ước tính" value={monitorSummary?.uniqueVisitors ?? "—"} detail="visitor_id phân biệt trong sự kiện page_view" icon="♙" tone="green" />
-                        <StatCard label="Phiên đang hoạt động" value={sessionsApiState === "ready" ? sessions.filter(recent).length : "—"} detail="Trong tối đa 100 phiên gần nhất, cửa sổ 30 giây" icon="▣" tone="violet" />
+                        <StatCard label="Phiên có lượt xem trang" value={monitorSummary?.sessions ?? "—"} detail="session_id phân biệt trong page_view" icon="▣" tone="violet" />
+                        <StatCard label="Phiên hoạt động trên hệ thống" value={monitorSummary?.activeSessions ?? "—"} detail="API đếm mọi phiên trong 30 giây tại lần cập nhật" icon="●" tone="green" />
                         <StatCard label="Mở QR trang chủ" value={monitorSummary?.qrOpens ?? "—"} detail="Nguồn qr_landing_verified" icon="▦" tone="amber" />
                         <StatCard label="Mở QR địa điểm" value={monitorSummary?.qrPoiOpens ?? "—"} detail="Nguồn qr_poi_verified" icon="⌖" tone="blue" />
                         <StatCard label="Lượt bắt đầu nghe" value={monitorSummary?.audioPlays ?? "—"} detail="MP3 hoặc TTS phát thành công" icon="♫" tone="green" />
+                        <StatCard label="Lượt xem địa điểm" value={monitorSummary?.poiViews ?? "—"} detail="COUNT(poi_view) · toàn thời gian" icon="⌖" tone="blue" />
+                        <StatCard label="Sự kiện bắt đầu tour" value={monitorSummary?.tourStarts ?? "—"} detail="API có hỗ trợ; giao diện chưa phát tour_start" icon="▷" tone="amber" />
+                        <StatCard label="Tổng sự kiện" value={monitorSummary?.totalEvents ?? "—"} detail="Mọi loại sự kiện · đã loại nguồn kiểm thử" icon="Σ" tone="violet" />
+                        <StatCard label="QR lịch sử" value={monitorSummary?.legacyQrOpens ?? "—"} detail="Nguồn qr_verified cũ, không gán lại loại QR" icon="▦" tone="amber" />
                     </div>
                     <p className="hag-muted">QR lịch sử chưa phân loại: {monitorSummary?.legacyQrOpens ?? "—"}. Các sự kiện qr_verified cũ được giữ nguyên, không tự gán lại thành QR trang chủ hoặc địa điểm.</p>
                     {monitorError && <DataNotice kind="warning">{monitorError}</DataNotice>}
