@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { getLocalization } from "../api/api";
+import { normalizeSearch as normalizeText } from "../utils/search";
 import "./ExploreLanding.css";
+import GuideIcon from "./GuideIcon";
 
 const COPY = {
     vi: {
@@ -12,7 +14,7 @@ const COPY = {
         map: "Mở bản đồ",
         featured: "Điểm đến nổi bật",
         hint: "Chọn một địa điểm để xem thông tin và nghe thuyết minh.",
-        all: "Tất cả",
+        all: "Tất cả", places: "điểm dừng",
         history: "Di tích",
         oldhouse: "Nhà cổ",
         assembly: "Hội quán",
@@ -33,7 +35,7 @@ const COPY = {
         map: "Open map",
         featured: "Featured places",
         hint: "Choose a place to read its story and open the audio guide.",
-        all: "All places",
+        all: "All places", places: "places",
         history: "Heritage",
         oldhouse: "Old houses",
         assembly: "Assembly halls",
@@ -54,7 +56,7 @@ const COPY = {
         map: "打开地图",
         featured: "精选景点",
         hint: "选择一个地点，查看介绍并打开语音讲解。",
-        all: "全部地点",
+        all: "全部地点", places: "个景点",
         history: "历史遗迹",
         oldhouse: "古宅",
         assembly: "会馆",
@@ -75,7 +77,7 @@ const COPY = {
         map: "지도 열기",
         featured: "추천 명소",
         hint: "장소를 선택해 소개와 오디오 가이드를 확인하세요.",
-        all: "전체 장소",
+        all: "전체 장소", places: "개 장소",
         history: "역사 유적",
         oldhouse: "고택",
         assembly: "회관",
@@ -96,7 +98,7 @@ const COPY = {
         map: "地図を開く",
         featured: "おすすめスポット",
         hint: "場所を選んで詳細と音声ガイドを確認してください。",
-        all: "すべて",
+        all: "すべて", places: "か所",
         history: "史跡",
         oldhouse: "古民家",
         assembly: "会館",
@@ -121,13 +123,6 @@ const POI_IMAGES = {
 };
 
 function categoryForPoi(poi){return ["history","oldhouse","assembly","market","heritage"].includes(poi.category)?poi.category:"heritage";}
-
-function normalizeText(value) {
-    return String(value || "")
-        .normalize("NFD")
-        .replace(/[\u0300-\u036f]/g, "")
-        .toLocaleLowerCase();
-}
 
 export default function ExploreLanding({ pois = [], language = "vi", onOpenPoi, onFindNearest, onShowMap }) {
     const t = COPY[language] || COPY.vi;
@@ -160,7 +155,6 @@ export default function ExploreLanding({ pois = [], language = "vi", onOpenPoi, 
             }
         }
         if (activePois.length) loadTranslations();
-        else setLocalized({});
         return () => { cancelled = true; };
     }, [activePois, language]);
 
@@ -189,7 +183,7 @@ export default function ExploreLanding({ pois = [], language = "vi", onOpenPoi, 
                     <h1>{t.title}</h1>
                     <p className="explore-intro">{t.intro}</p>
                     <label className="explore-search">
-                        <span aria-hidden="true">⌕</span>
+                        <GuideIcon name="search" />
                         <input
                             type="search"
                             value={query}
@@ -200,11 +194,12 @@ export default function ExploreLanding({ pois = [], language = "vi", onOpenPoi, 
                         {query && <button type="button" className="explore-clear" onClick={() => setQuery("")} aria-label="Clear search">×</button>}
                     </label>
                     <div className="explore-hero-actions">
-                        <button type="button" className="explore-action-primary" onClick={onFindNearest}>⌖ {t.nearby}</button>
-                        <button type="button" className="explore-action-secondary" onClick={onShowMap}>▧ {t.map}</button>
+                        <button type="button" className="explore-action-primary" onClick={onFindNearest}><GuideIcon name="pin" />{t.nearby}</button>
+                        <button type="button" className="explore-action-secondary" onClick={onShowMap}><GuideIcon name="map" />{t.map}</button>
                     </div>
+                    <div className="explore-hero-facts"><span><strong>{activePois.length.toString().padStart(2, "0")}</strong>{t.places}</span><span><GuideIcon name="headphones" />VI · EN · 中文 · 한국어 · 日本語</span></div>
                 </div>
-                <div className="explore-hero-ornament" aria-hidden="true" />
+                <div className="explore-hero-visual" aria-hidden="true"><img src="/Images/Chua-cau-Hoi-An.jpg" alt="" fetchPriority="high" /><div className="explore-photo-caption"><span>HỘI AN, VIỆT NAM</span><strong>15°52′ N · 108°19′ E</strong></div><span className="explore-photo-stamp">Hội An<br /><small>PHỐ CỔ</small></span></div>
             </section>
 
             <section className="explore-featured-section">
@@ -223,7 +218,7 @@ export default function ExploreLanding({ pois = [], language = "vi", onOpenPoi, 
 
                 <div className="explore-category-list" aria-label={t.all}>
                     {categories.map(([key, label]) => (
-                        <button key={key} type="button" className={category === key ? "selected" : ""} onClick={() => { setCategory(key); setShowAll(key !== "all"); }}>
+                        <button key={key} type="button" aria-pressed={category === key} className={category === key ? "selected" : ""} onClick={() => { setCategory(key); setShowAll(key !== "all"); }}>
                             {label}
                         </button>
                     ))}
@@ -233,7 +228,7 @@ export default function ExploreLanding({ pois = [], language = "vi", onOpenPoi, 
                     <div className="explore-poi-grid">
                         {shownPois.map((poi, index) => {
                             const copy = localized[poi.id] || {};
-                            const name = copy.name || poi.name || `POI ${poi.id}`;
+                            const name = (copy.name || poi.name || `POI ${poi.id}`).normalize("NFC");
                             const description = copy.description || poi.description || "";
                             return (
                                 <button key={poi.id} type="button" className="explore-poi-card" onClick={() => onOpenPoi?.(poi)} aria-label={`${t.details}: ${name}`}>
