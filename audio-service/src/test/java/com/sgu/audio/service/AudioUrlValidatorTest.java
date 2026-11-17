@@ -32,6 +32,26 @@ class AudioUrlValidatorTest {
     }
 
     @Test
+    void shouldAcceptLocalAudioPathForCreateAndUpdate() {
+        String localPath = "/audio/3-vi.mp3";
+        var create = new com.sgu.audio.dto.CreateAudioRequest();
+        var update = new com.sgu.audio.dto.UpdateAudioRequest();
+        create.setAudioUrl(localPath);
+        update.setAudioUrl(localPath);
+
+        try (var factory = jakarta.validation.Validation.buildDefaultValidatorFactory()) {
+            var beanValidator = factory.getValidator();
+            assertTrue(beanValidator.validateProperty(create, "audioUrl").isEmpty());
+            assertTrue(beanValidator.validateProperty(update, "audioUrl").isEmpty());
+        }
+    }
+
+    @Test
+    void shouldRejectLocalPathOutsideAudioDirectory() {
+        assertFalse(validator.isValid("/images/sample.mp3", null));
+    }
+
+    @Test
     void shouldRejectFtpUrl() {
         assertFalse(validator.isValid(
                 "ftp://example.com/audio.mp3",
