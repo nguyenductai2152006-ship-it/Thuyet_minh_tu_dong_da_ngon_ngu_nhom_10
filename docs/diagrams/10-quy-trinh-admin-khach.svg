@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1230" height="750" viewBox="0 0 1230 750" role="img"><title>Quy trình cập nhật và nghe thuyết minh</title>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#225f90"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="36" y="49" font-size="31" text-anchor="start" font-weight="750" fill="#26374d">Quy trình cập nhật và nghe thuyết minh</text>
+<text x="37" y="80" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Kịch bản nghiệm thu xuyên suốt trang Admin và trang khách</text>
+<rect x="55" y="124" width="180" height="51" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="145" y="155.5" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Admin</text>
+<rect x="265" y="112" width="900" height="76" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="715" y="141" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">1. Đăng nhập và chọn POI</text>
+<text x="715" y="166" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Identity trả JWT khi xác thực thành công.</text>
+<path d="M715 188V227" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="55" y="239" width="180" height="51" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="145" y="270.5" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Admin</text>
+<rect x="265" y="227" width="900" height="76" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="715" y="256" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">2. Cập nhật bản dịch và URL audio</text>
+<text x="715" y="281" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Lưu bản dịch và metadata audio theo cùng POI, cùng ngôn ngữ.</text>
+<path d="M715 303V342" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="55" y="354" width="180" height="51" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="145" y="385.5" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Khách</text>
+<rect x="265" y="342" width="900" height="76" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="715" y="371" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">3. Quét QR hoặc chọn POI</text>
+<text x="715" y="396" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Frontend lấy POI đang hoạt động và nội dung theo ngôn ngữ đã chọn.</text>
+<path d="M715 418V457" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="55" y="469" width="180" height="51" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="145" y="500.5" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Khách</text>
+<rect x="265" y="457" width="900" height="76" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="715" y="486" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">4. Nghe thuyết minh và ghi nhận sự kiện</text>
+<text x="715" y="511" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Phát MP3 khi truy cập được, hoặc dùng TTS khi có văn bản và trình duyệt hỗ trợ.</text>
+<path d="M715 533V572" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="55" y="584" width="180" height="51" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="145" y="615.5" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Admin</text>
+<rect x="265" y="572" width="900" height="76" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="715" y="601" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">5. Đối chiếu số liệu trên Analytics</text>
+<text x="715" y="626" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Mở thống kê và kiểm tra sự kiện trong cùng cửa sổ thời gian.</text>
+<text x="55" y="714" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Nhánh lỗi cần thử: lưu thất bại, QR sai hoặc POI không hoạt động, audio không tải được, và token hết hạn.</text>
+</g></svg>

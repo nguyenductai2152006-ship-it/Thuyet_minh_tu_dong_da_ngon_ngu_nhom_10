@@ -1,0 +1,155 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1480" height="1105" viewBox="0 0 1480 1105" role="img"><title>DFD phân rã tiến trình 0</title>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#225f90"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="36" y="49" font-size="31" text-anchor="start" font-weight="750" fill="#26374d">DFD phân rã tiến trình 0</text>
+<text x="37" y="80" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Tác nhân hình chữ nhật • Tiến trình hình tròn • Kho dữ liệu cạnh cong</text>
+<rect x="30" y="113" width="220" height="60" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="140" y="149" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Quản trị viên</text>
+<circle cx="733" cy="143" r="51" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="733" y="138" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">1.0</text>
+<text x="733" y="158" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">Xác thực</text>
+<path d="M250 131H683" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M684 158H250" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1210 113H1445 Q1427 143 1445 173H1210 Q1192 143 1210 113Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="148" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D1</text>
+<text x="1259" y="148" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">users</text>
+<path d="M784 139H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 161H781" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="414" y="126" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Thông tin đăng nhập</text>
+<text x="414" y="182" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Kết quả xác thực (JWT)</text>
+<text x="1049" y="133" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Tra tài khoản</text>
+<text x="1049" y="182" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Tài khoản và vai trò</text>
+<rect x="30" y="242" width="220" height="60" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="140" y="278" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Khách tham quan</text>
+<circle cx="733" cy="272" r="51" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="733" y="267" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">2.0</text>
+<text x="733" y="287" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">Khám phá POI</text>
+<path d="M250 260H683" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M684 287H250" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1210 242H1445 Q1427 272 1445 302H1210 Q1192 272 1210 242Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="277" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D2</text>
+<text x="1259" y="277" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">pois</text>
+<path d="M784 268H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 290H781" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="414" y="255" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Mã QR, tiêu chí tìm kiếm</text>
+<text x="414" y="311" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Danh mục, ID và chi tiết POI</text>
+<text x="1049" y="262" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Tra POI</text>
+<text x="1049" y="311" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Thông tin POI</text>
+<rect x="30" y="371" width="220" height="60" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="140" y="407" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Khách tham quan</text>
+<circle cx="733" cy="401" r="51" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="733" y="386" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">3.0</text>
+<text x="733" y="406" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">Cung cấp</text>
+<text x="733" y="426" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">thuyết minh</text>
+<path d="M250 389H683" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M684 416H250" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1210 371H1445 Q1427 401 1445 431H1210 Q1192 401 1210 371Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="406" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D3</text>
+<text x="1259" y="406" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">poi_localizations</text>
+<path d="M784 397H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 419H781" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="414" y="384" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">POI đã chọn, ngôn ngữ</text>
+<text x="414" y="440" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Bản dịch và nội dung audio</text>
+<text x="1049" y="391" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">POI, mã ngôn ngữ</text>
+<text x="1049" y="440" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Tên và mô tả đã dịch</text>
+<rect x="30" y="525" width="220" height="60" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="140" y="561" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Khách tham quan</text>
+<circle cx="733" cy="555" r="51" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="733" y="540" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">4.0</text>
+<text x="733" y="560" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">Bản đồ, GPS</text>
+<text x="733" y="580" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">và tra cứu</text>
+<path d="M250 543H683" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M684 570H250" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1210 525H1445 Q1427 555 1445 585H1210 Q1192 555 1210 525Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="560" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D2</text>
+<text x="1259" y="560" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">pois</text>
+<path d="M784 551H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 573H781" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="414" y="538" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Vị trí, câu hỏi, điểm chọn</text>
+<text x="414" y="594" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Ghim, điểm gần, câu trả lời</text>
+<text x="1049" y="545" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Danh mục và tọa độ</text>
+<text x="1049" y="594" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Dữ liệu POI</text>
+<rect x="30" y="690" width="220" height="60" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="140" y="726" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Quản trị viên</text>
+<circle cx="733" cy="721" r="72" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="733" y="706" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">5.0</text>
+<text x="733" y="726" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">Quản lý</text>
+<text x="733" y="746" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">nội dung</text>
+<path d="M250 708H662" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M662 735H250" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="414" y="703" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">JWT và dữ liệu CRUD</text>
+<text x="414" y="759" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Danh sách và kết quả cập nhật</text>
+<rect x="30" y="819" width="220" height="60" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="140" y="855" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Khách tham quan</text>
+<circle cx="733" cy="849" r="51" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="733" y="834" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">6.0</text>
+<text x="733" y="854" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">Ghi sự kiện</text>
+<text x="733" y="874" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">và thống kê</text>
+<path d="M250 837H683" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1210 819H1445 Q1427 849 1445 879H1210 Q1192 849 1210 819Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="854" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D5</text>
+<text x="1259" y="854" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">analytics_events</text>
+<path d="M784 845H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 867H781" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="414" y="832" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Sự kiện sử dụng</text>
+<text x="414" y="888" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d"></text>
+<text x="1049" y="839" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Ghi sự kiện, đọc tổng hợp</text>
+<text x="1049" y="888" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Sự kiện và số liệu</text>
+<path d="M1210 458H1445 Q1427 479 1445 500H1210 Q1192 479 1210 458Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="484" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D4</text>
+<text x="1259" y="484" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">audio</text>
+<path d="M752 448V470H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 489H722V451" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="1060" y="465" font-size="13" text-anchor="middle" font-weight="400" fill="#26374d">POI, ngôn ngữ</text>
+<text x="1060" y="507" font-size="13" text-anchor="middle" font-weight="400" fill="#26374d">URL, thời lượng</text>
+<path d="M733 323V350" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="749" y="341" font-size="13" text-anchor="start" font-weight="400" fill="#26374d">ID POI chọn từ Khám phá</text>
+<path d="M696 520L680 499V459L695 437" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="662" y="492" font-size="13" text-anchor="end" font-weight="400" fill="#26374d">ID POI từ Bản đồ/GPS</text>
+<path d="M1210 605H1445 Q1427 624 1445 643H1210 Q1192 624 1210 605Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="629" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D3</text>
+<text x="1259" y="629" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">poi_localizations</text>
+<path d="M758 600V615H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 632H734V606" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="1055" y="610" font-size="13" text-anchor="middle" font-weight="400" fill="#26374d">ID POI, mã ngôn ngữ</text>
+<text x="1055" y="650" font-size="13" text-anchor="middle" font-weight="400" fill="#26374d">Tên và mô tả đã dịch</text>
+<path d="M1210 657H1445 Q1427 674.5 1445 692H1210 Q1192 674.5 1210 657Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="679.5" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D2</text>
+<text x="1259" y="679.5" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">pois</text>
+<path d="M778 665H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 682H794" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="1065" y="662" font-size="12" text-anchor="middle" font-weight="400" fill="#26374d">Yêu cầu đọc / ghi D2</text>
+<text x="1065" y="697" font-size="12" text-anchor="middle" font-weight="400" fill="#26374d">Dữ liệu / kết quả lưu D2</text>
+<path d="M1210 706H1445 Q1427 723.5 1445 741H1210 Q1192 723.5 1210 706Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="728.5" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D3</text>
+<text x="1259" y="728.5" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">poi_localizations</text>
+<path d="M805 714H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 731H804" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="1065" y="711" font-size="12" text-anchor="middle" font-weight="400" fill="#26374d">Yêu cầu đọc / ghi D3</text>
+<text x="1065" y="746" font-size="12" text-anchor="middle" font-weight="400" fill="#26374d">Dữ liệu / kết quả lưu D3</text>
+<path d="M1210 755H1445 Q1427 772.5 1445 790H1210 Q1192 772.5 1210 755Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="777.5" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D4</text>
+<text x="1259" y="777.5" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">audio</text>
+<path d="M791 763H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 780H774" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="1065" y="760" font-size="12" text-anchor="middle" font-weight="400" fill="#26374d">Yêu cầu đọc / ghi D4</text>
+<text x="1065" y="795" font-size="12" text-anchor="middle" font-weight="400" fill="#26374d">Dữ liệu / kết quả lưu D4</text>
+<rect x="30" y="897" width="220" height="56" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="140" y="931" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Quản trị viên</text>
+<path d="M250 909H543V865H685" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M704 891V940H250" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="399" y="901" font-size="14" text-anchor="middle" font-weight="400" fill="#26374d">JWT và yêu cầu thống kê</text>
+<text x="399" y="960" font-size="14" text-anchor="middle" font-weight="400" fill="#26374d">Kết quả thống kê</text>
+<path d="M1210 901H1445 Q1427 922.5 1445 944H1210 Q1192 922.5 1210 901Z" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<text x="1229" y="927.5" font-size="14" text-anchor="middle" font-weight="700" fill="#26374d">D2</text>
+<text x="1259" y="927.5" font-size="15" text-anchor="start" font-weight="700" fill="#26374d">pois</text>
+<path d="M776 876H898V912H1202" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1202 933H866V889H765" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="1050" y="905" font-size="13" text-anchor="middle" font-weight="400" fill="#26374d">Kiểm tra poiId nếu có</text>
+<text x="1050" y="951" font-size="13" text-anchor="middle" font-weight="400" fill="#26374d">Kết quả kiểm tra tồn tại</text>
+<text x="36" y="976" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Tiến trình 2 hoặc 4 cung cấp ID POI cho tiến trình 3 khi khách chọn điểm hoặc GPS kích hoạt.</text>
+<text x="36" y="1004" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Tiến trình 5 dùng lại D2, D3 và D4. Các thao tác ghi cần quyền quản trị.</text>
+<text x="36" y="1032" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Tiến trình 3 lấy media qua URL. Nginx phục vụ tệp nội bộ và trình duyệt thực hiện TTS dự phòng.</text>
+<text x="36" y="1060" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Tiến trình 6 nhận sự kiện từ giao diện khách và trả thống kê cho Admin. Kho D5 thuộc POI Service.</text>
+</g></svg>

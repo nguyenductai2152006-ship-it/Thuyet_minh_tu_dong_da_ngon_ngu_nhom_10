@@ -29,16 +29,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     }
 
     /**
-     * Register và Login là public endpoint,
-     * không cần JWT.
+     * Only login is public. Registration requires the caller JWT
+     * so SecurityConfig can enforce the ADMIN role.
      */
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
 
         String path = request.getServletPath();
 
-        return "/api/v1/auth/register".equals(path)
-                || "/api/v1/auth/login".equals(path);
+        return "/api/v1/auth/login".equals(path);
     }
 
     @Override

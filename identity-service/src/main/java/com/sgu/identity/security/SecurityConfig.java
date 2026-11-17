@@ -42,11 +42,15 @@ public class SecurityConfig {
                 )
 
                 .authorizeHttpRequests(auth -> auth
+                        // Cho phép toàn bộ preflight request (CORS OPTIONS) từ client (trình duyệt/điện thoại)
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
+                        // Tourist accounts are not required. If an account is created,
+                        // restrict registration to an authenticated administrator.
                         .requestMatchers(
                                 HttpMethod.POST,
                                 "/api/v1/auth/register"
-                        ).permitAll()
+                        ).hasRole("ADMIN")
 
                         .requestMatchers(
                                 HttpMethod.POST,
@@ -62,7 +66,9 @@ public class SecurityConfig {
                 )
 
                 .exceptionHandling(exception ->
-                        exception.authenticationEntryPoint(
+                        exception.accessDeniedHandler((request, response, denied) ->
+                                response.setStatus(HttpStatus.FORBIDDEN.value())
+                        ).authenticationEntryPoint(
                                 new HttpStatusEntryPoint(
                                         HttpStatus.UNAUTHORIZED
                                 )

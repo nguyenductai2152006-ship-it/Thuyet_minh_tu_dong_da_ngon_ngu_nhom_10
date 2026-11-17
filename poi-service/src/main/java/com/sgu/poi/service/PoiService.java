@@ -11,23 +11,42 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @Transactional
 public class PoiService {
 
     private final PoiRepository poiRepository;
+    private final RelatedContentGuard relatedContentGuard;
+    private final PoiMutationLock mutationLock;
 
-    public PoiService(PoiRepository poiRepository) {
+    public PoiService(PoiRepository poiRepository, RelatedContentGuard relatedContentGuard,PoiMutationLock mutationLock) {
         this.poiRepository = poiRepository;
+        this.relatedContentGuard = relatedContentGuard;
+        this.mutationLock=mutationLock;
     }
 
     @Transactional(readOnly = true)
     public List<PoiResponse> getAll() {
-        return poiRepository.findAll()
+        return poiRepository.findByStatus(PoiStatus.ACTIVE)
                 .stream()
                 .map(this::toResponse)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<PoiResponse> getAllForAdmin() {
+        return poiRepository.findAll().stream().map(this::toResponse).toList();
+    }
+
+    private void requireVisible(Poi poi) {
+        var authentication = SecurityContextHolder.getContext().getAuthentication();
+        boolean admin = authentication != null && authentication.getAuthorities().stream()
+                .anyMatch(authority -> "ROLE_ADMIN".equals(authority.getAuthority()));
+        if (poi.getStatus() != PoiStatus.ACTIVE && !admin) throw new PoiNotFoundException(poi.getId());
     }
 
     @Transactional(readOnly = true)
@@ -35,6 +54,23 @@ public class PoiService {
         Poi poi = poiRepository.findById(id)
                 .orElseThrow(() -> new PoiNotFoundException(id));
 
+        requireVisible(poi);
+        return toResponse(poi);
+    }
+
+    /**
+     * Tìm POI bằng mã QR.
+     *
+     * Ví dụ:
+     * HOIANGUIDE_POI_3
+     * HOIANGUIDE_POI_4
+     */
+    @Transactional(readOnly = true)
+    public PoiResponse getByQrCode(String qrCode) {
+        Poi poi = poiRepository.findByQrCode(qrCode.trim())
+                .orElseThrow(() -> new PoiNotFoundException(-1L));
+
+        requireVisible(poi);
         return toResponse(poi);
     }
 
@@ -46,7 +82,9 @@ public class PoiService {
         poi.setLatitude(request.getLatitude());
         poi.setLongitude(request.getLongitude());
         poi.setRadius(request.getRadius());
+        poi.setQrCode(request.getQrCode().trim());
         poi.setImageUrl(request.getImageUrl());
+        poi.setCategory(request.getCategory()==null ? "heritage" : request.getCategory());
 
         poi.setStatus(
                 request.getStatus() != null
@@ -54,12 +92,13 @@ public class PoiService {
                         : PoiStatus.ACTIVE
         );
 
-        Poi savedPoi = poiRepository.save(poi);
+        Poi savedPoi = poiRepository.saveAndFlush(poi);
 
         return toResponse(savedPoi);
     }
 
     public PoiResponse update(Long id, UpdatePoiRequest request) {
+        mutationLock.acquire(id);
         Poi poi = poiRepository.findById(id)
                 .orElseThrow(() -> new PoiNotFoundException(id));
 
@@ -68,18 +107,22 @@ public class PoiService {
         poi.setLatitude(request.getLatitude());
         poi.setLongitude(request.getLongitude());
         poi.setRadius(request.getRadius());
-        poi.setImageUrl(request.getImageUrl());
+        poi.setQrCode(request.getQrCode().trim());
+        if(request.getCategory()!=null)poi.setCategory(request.getCategory());
+        if (request.hasImageUrl()) poi.setImageUrl(request.getImageUrl());
         poi.setStatus(request.getStatus());
 
-        Poi updatedPoi = poiRepository.save(poi);
+        Poi updatedPoi = poiRepository.saveAndFlush(poi);
 
         return toResponse(updatedPoi);
     }
 
     public void delete(Long id) {
+        mutationLock.acquire(id);
         Poi poi = poiRepository.findById(id)
                 .orElseThrow(() -> new PoiNotFoundException(id));
 
+        relatedContentGuard.requireEmpty(id);
         poiRepository.delete(poi);
     }
 
@@ -91,8 +134,9 @@ public class PoiService {
                 poi.getLatitude(),
                 poi.getLongitude(),
                 poi.getRadius(),
+                poi.getQrCode(),
                 poi.getImageUrl(),
-                poi.getStatus()
+                poi.getStatus(),poi.getCategory()
         );
     }
 }

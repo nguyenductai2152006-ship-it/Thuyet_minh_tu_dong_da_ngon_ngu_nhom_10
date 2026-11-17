@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1300" height="730" viewBox="0 0 1300 730" role="img"><title>C4 mức 2 — Container</title>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#225f90"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="36" y="49" font-size="31" text-anchor="start" font-weight="750" fill="#26374d">C4 mức 2 — Container</text>
+<text x="37" y="80" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Bảy container triển khai và dịch vụ bản đồ bên ngoài</text>
+<rect x="86" y="109" width="260" height="55" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="216" y="142.5" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Khách tham quan</text>
+<rect x="518" y="109" width="260" height="55" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="648" y="142.5" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Quản trị viên</text>
+<rect x="950" y="109" width="280" height="55" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="1090" y="142.5" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Dịch vụ bản đồ bên ngoài</text>
+<rect x="30" y="191" width="1240" height="511" rx="12" fill="#f9fbfd" stroke="#225f90" stroke-width="2" stroke-dasharray="7 5"/>
+<text x="46" y="218" font-size="16" text-anchor="start" font-weight="700" fill="#26374d">Ranh giới hệ thống</text>
+<rect x="465" y="236" width="370" height="70" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="650" y="265" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Frontend React + Nginx</text>
+<text x="650" y="290" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">SPA, /admin, ảnh và MP3 nội bộ</text>
+<path d="M216 164V222H540V236" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M648 164V236" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M835 252H1090V164" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="930" y="242" font-size="14" text-anchor="start" font-weight="400" fill="#26374d">Tải ô bản đồ / mở chỉ đường</text>
+<rect x="465" y="355" width="370" height="65" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="650" y="384" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">API Gateway</text>
+<text x="650" y="409" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Spring Boot • định tuyến theo URL</text>
+<path d="M650 306V355" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="666" y="336" font-size="14" text-anchor="start" font-weight="400" fill="#26374d">HTTP /api</text>
+<path d="M490 420V440H197V503" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="62" y="503" width="270" height="72" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="197" y="532" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Identity Service</text>
+<text x="197" y="557" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Đăng nhập và cấp JWT</text>
+<path d="M197 575V620" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M590 420V452H497V503" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="362" y="503" width="270" height="72" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="497" y="532" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">POI Service</text>
+<text x="497" y="557" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">POI và Analytics</text>
+<path d="M497 575V620" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M690 420V464H797V503" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="662" y="503" width="270" height="72" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="797" y="532" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Localization Service</text>
+<text x="797" y="557" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Bản dịch theo POI và ngôn ngữ</text>
+<path d="M797 575V620" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M790 420V476H1097V503" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="962" y="503" width="270" height="72" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="1097" y="532" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Audio Service</text>
+<text x="1097" y="557" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">URL và thời lượng audio</text>
+<path d="M1097 575V620" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="645" y="439" font-size="13" text-anchor="middle" font-weight="400" fill="#26374d">HTTP REST</text>
+<rect x="65" y="620" width="1170" height="57" rx="12" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<path d="M77 620v57" stroke="#225f90" stroke-width="2"/>
+<text x="650" y="654.5" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">MySQL 8 • identity_db, poi_db, localization_db, audio_db</text>
+<text x="1135" y="601" font-size="14" text-anchor="start" font-weight="400" fill="#26374d">JDBC</text>
+</g></svg>

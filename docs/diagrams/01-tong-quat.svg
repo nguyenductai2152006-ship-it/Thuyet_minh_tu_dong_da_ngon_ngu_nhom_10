@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1240" height="665" viewBox="0 0 1240 665" role="img"><title>Kiến trúc tổng quát</title>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0 0L9 4.5L0 9Z" fill="#225f90"/></marker></defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<g font-family="Segoe UI, Arial, sans-serif">
+<text x="36" y="49" font-size="31" text-anchor="start" font-weight="750" fill="#26374d">Kiến trúc tổng quát</text>
+<text x="37" y="80" font-size="16" text-anchor="start" font-weight="400" fill="#26374d">Hệ thống thuyết minh tự động đa ngôn ngữ • Nhóm 10</text>
+<rect x="180" y="120" width="290" height="62" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="325" y="157" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Khách tham quan</text>
+<rect x="770" y="120" width="290" height="62" rx="3" fill="#fff0d4" stroke="#225f90" stroke-width="2"/>
+<text x="915" y="157" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Quản trị viên</text>
+<path d="M325 182V206H545V226" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M915 182V206H695V226" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="370" y="226" width="500" height="76" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="620" y="255" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Frontend React và Nginx</text>
+<text x="620" y="280" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">Trang khách, /admin, ảnh và tệp audio</text>
+<path d="M620 302V345" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="638" y="330" font-size="15" text-anchor="start" font-weight="400" fill="#26374d">/api</text>
+<rect x="410" y="345" width="420" height="60" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="620" y="381" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">API Gateway</text>
+<path d="M470 405V425H177V480" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="35" y="480" width="285" height="76" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="177.5" y="509" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Identity Service</text>
+<text x="177.5" y="534" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">identity_db.users</text>
+<path d="M570 405V434H472V480" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="330" y="480" width="285" height="76" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="472.5" y="509" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">POI Service + Analytics</text>
+<text x="472.5" y="534" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">poi_db.pois và analytics_events</text>
+<path d="M670 405V443H767V480" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="625" y="480" width="285" height="76" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="767.5" y="509" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Localization Service</text>
+<text x="767.5" y="534" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">localization_db.poi_localizations</text>
+<path d="M770 405V452H1062V480" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<rect x="920" y="480" width="285" height="76" rx="12" fill="#eaf4fd" stroke="#225f90" stroke-width="2"/>
+<text x="1062.5" y="509" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Audio Service</text>
+<text x="1062.5" y="534" font-size="15" text-anchor="middle" font-weight="400" fill="#26374d">audio_db.audio</text>
+<rect x="90" y="595" width="1060" height="43" rx="12" fill="#eaf6ef" stroke="#225f90" stroke-width="2"/>
+<path d="M177 556V595" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M472 556V595" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M767 556V595" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<path d="M1062 556V595" fill="none" stroke="#225f90" stroke-width="2" marker-end="url(#arrow)" />
+<text x="620" y="622" font-size="18" text-anchor="middle" font-weight="700" fill="#26374d">Một MySQL 8 • bốn schema nghiệp vụ</text>
+</g></svg>

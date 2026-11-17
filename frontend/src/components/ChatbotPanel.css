@@ -1,0 +1,92 @@
+/* AI assistant panel – calm parchment surfaces and Hội An gold accents */
+.feature-panel.chatbot-panel { display: grid; gap: 16px; }
+.chatbot-status {
+    display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0;
+    padding: 6px 10px; border-radius: 7px; background: #f2f6e9;
+    color: #4f6a3f; border: 1px solid #d5dfc3; font-size: .74rem; font-weight: 680;
+}
+.chatbot-status i { width: 7px; height: 7px; border-radius: 50%; background: #719451; }
+.chat-suggestions { display: flex; flex-wrap: wrap; gap: 8px; }
+.chat-suggestions button {
+    padding: 8px 11px; border: 1px solid #dfd0b3; border-radius: 7px;
+    background: #fffdf8; color: #65513a; font-size: .8rem; font-weight: 580;
+    cursor: pointer; transition: background-color .15s ease, border-color .15s ease;
+}
+.chat-suggestions button:hover:not(:disabled) { border-color: #c99c43; color: #6d4b12; background: #fff6df; }
+.chat-suggestions button:disabled { opacity: .6; cursor: wait; }
+.chat-messages {
+    display: flex; flex-direction: column; gap: 15px; min-height: 270px;
+    max-height: min(48vh, 500px); overflow-y: auto; padding: 15px;
+    border: 1px solid var(--hoi-border); border-radius: 10px; background: #faf5eb;
+}
+.chat-message { display: flex; align-items: flex-start; gap: 9px; max-width: 100%; }
+.chat-message.user { flex-direction: row-reverse; }
+.chat-avatar {
+    display: grid; place-items: center; width: 32px; height: 32px; flex-shrink: 0;
+    border-radius: 8px; background: #f2dfb0; color: #78510e; font-size: .72rem; font-weight: 760;
+}
+.chat-message.user .chat-avatar { background: #e9dfcf; color: #665440; }
+.chat-bubble {
+    max-width: min(88%, 700px); padding: 12px 14px; border: 1px solid #e6dcc9;
+    border-radius: 4px 10px 10px 10px; background: #fffdf8; color: #45392a;
+}
+.chat-message.user .chat-bubble { border-color: #e6c77e; background: #fff2cf; border-radius: 10px 4px 10px 10px; }
+.chat-bubble p { margin: 0; white-space: pre-line; line-height: 1.68; font-size: .92rem; overflow-wrap: anywhere; }
+.chat-actions { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 11px; }
+.chat-actions button, .chat-actions a { font-size: .8rem; padding: 8px 10px; }
+.chat-busy { color: #795414; font-size: .82rem; margin-left: 42px; }
+.chat-compose { display: flex; gap: 9px; }
+.chat-compose input {
+    flex: 1; min-width: 0; padding: 12px 14px; border: 1px solid #d8cbb7;
+    border-radius: 8px; background: #fffdf8; color: var(--hoi-ink);
+    font: inherit; font-size: .92rem; outline: none;
+}
+.chat-compose input::placeholder { color: #9b8a74; }
+.chat-compose input:focus { border-color: #c99c43; box-shadow: 0 0 0 3px rgba(201, 156, 67, .14); }
+.chat-compose button {
+    min-width: 78px; padding: 10px 15px; color: #3e2b10; background: var(--hoi-gold);
+    border: 1px solid #c68a14; border-radius: 8px; font-weight: 720; cursor: pointer;
+    transition: background-color .15s ease;
+}
+.chat-compose button:hover:not(:disabled) { background: #efb83f; }
+.chat-compose button:disabled { opacity: .55; cursor: not-allowed; }
+@media (max-width: 620px) {
+    .chatbot-status { align-self: start; }
+    .chat-compose button { min-width: 64px; padding-inline: 12px; }
+    .chat-bubble { max-width: calc(100% - 40px); }
+    .chat-messages { padding: 11px; }
+}
+
+/* A lantern at the top and a fine old-town sketch at the bottom echo Hội An. */
+.feature-panel.chatbot-panel {
+    position: relative;
+    isolation: isolate;
+}
+.feature-panel.chatbot-panel::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    right: 4px;
+    width: 60px;
+    height: 78px;
+    background: url("/Decorations/lantern-cluster.svg") center / contain no-repeat;
+    opacity: .18;
+    pointer-events: none;
+}
+.feature-panel.chatbot-panel::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: 0;
+    bottom: 22px;
+    width: 136px;
+    height: 78px;
+    background: url("/Decorations/oldtown-lineart.svg") right bottom / contain no-repeat;
+    opacity: .17;
+    pointer-events: none;
+}
+@media (max-width: 620px) {
+    .feature-panel.chatbot-panel::before { width: 42px; height: 58px; opacity: .14; }
+    .feature-panel.chatbot-panel::after { width: 96px; height: 56px; bottom: 18px; opacity: .12; }
+}

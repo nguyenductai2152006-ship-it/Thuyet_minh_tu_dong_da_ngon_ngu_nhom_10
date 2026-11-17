@@ -6,12 +6,16 @@ import java.math.BigDecimal;
 
 public class PoiResponse {
 
+    private String category="heritage";
+    public String getCategory(){return category;}
+    public void setCategory(String value){category=value;}
     private Long id;
     private String name;
     private String description;
     private BigDecimal latitude;
     private BigDecimal longitude;
     private BigDecimal radius;
+    private String qrCode;
     private String imageUrl;
     private PoiStatus status;
 
@@ -25,8 +29,9 @@ public class PoiResponse {
             BigDecimal latitude,
             BigDecimal longitude,
             BigDecimal radius,
+            String qrCode,
             String imageUrl,
-            PoiStatus status
+            PoiStatus status, String category
     ) {
         this.id = id;
         this.name = name;
@@ -34,8 +39,9 @@ public class PoiResponse {
         this.latitude = latitude;
         this.longitude = longitude;
         this.radius = radius;
+        this.qrCode = qrCode;
         this.imageUrl = imageUrl;
-        this.status = status;
+        this.status = status;this.category=category;
     }
 
     public Long getId() {
@@ -84,6 +90,14 @@ public class PoiResponse {
 
     public void setRadius(BigDecimal radius) {
         this.radius = radius;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 
     public String getImageUrl() {

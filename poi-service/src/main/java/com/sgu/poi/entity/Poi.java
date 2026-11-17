@@ -9,6 +9,10 @@ import java.time.LocalDateTime;
 @Table(name = "pois")
 public class Poi {
 
+    @Column(name="category",nullable=false,length=20,columnDefinition="varchar(20) default 'heritage'")
+    private String category="heritage";
+    public String getCategory(){return category;}
+    public void setCategory(String value){category=value;}
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,6 +31,9 @@ public class Poi {
 
     @Column(name = "radius", nullable = false, precision = 8, scale = 2)
     private BigDecimal radius;
+
+    @Column(name = "qr_code", unique = true, length = 100)
+    private String qrCode;
 
     @Column(name = "image_url", length = 500)
     private String imageUrl;
@@ -106,6 +113,14 @@ public class Poi {
 
     public void setRadius(BigDecimal radius) {
         this.radius = radius;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
     }
 
     public String getImageUrl() {

@@ -1,0 +1,83 @@
+/* Explore narration card – consistent typography and heritage-gold controls */
+.audio-card-container {
+    max-width: 760px; margin: 20px auto; overflow: hidden;
+    background: var(--hoi-surface); border: 1px solid var(--hoi-border);
+    border-radius: 12px; box-shadow: 0 3px 14px rgba(66, 47, 18, .06);
+    animation: audio-card-enter .22s ease-out;
+}
+@keyframes audio-card-enter {
+    from { opacity: 0; transform: translateY(5px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.back-scan-btn {
+    display: flex; align-items: center; gap: 10px; width: 100%; padding: 13px 18px;
+    color: #62513d; background: #faf5eb; border: 0; border-bottom: 1px solid var(--hoi-border);
+    text-align: left; font-size: .88rem; font-weight: 650; cursor: pointer;
+}
+.back-scan-btn:hover { background: #fff1cd; }
+.cover-container { position: relative; height: 245px; overflow: hidden; background: #e8decd; }
+.poi-cover-img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.cover-overlay { position: absolute; top: 13px; right: 13px; }
+.lang-badge {
+    display: inline-block; padding: 6px 10px; color: #fffdf8;
+    background: rgba(54, 39, 19, .82); border: 1px solid rgba(255,255,255,.26);
+    border-radius: 6px; font-size: .74rem; font-weight: 680;
+}
+.audio-card-body { padding: 22px; }
+.audio-eyebrow { margin: 0 0 7px; color: #96702d; font-size: .72rem; font-weight: 730; letter-spacing: .11em; }
+.poi-title-xl { margin: 0 0 18px; color: var(--hoi-ink); font-size: clamp(1.45rem, 4vw, 1.9rem); font-weight: 760; line-height: 1.3; letter-spacing: -.025em; }
+.custom-player { margin-bottom: 22px; padding: 16px; background: #faf5eb; border: 1px solid var(--hoi-border); border-radius: 9px; }
+.player-controls { display: flex; align-items: center; gap: 14px; }
+.play-pause-btn {
+    display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center;
+    width: 48px; height: 48px; padding: 0 0 0 2px; color: #3e2b10;
+    background: var(--hoi-gold); border: 1px solid #c68a14; border-radius: 50%;
+    box-shadow: none; font-size: 20px; cursor: pointer; transition: background .15s ease;
+}
+.play-pause-btn:hover { background: #efb83f; }
+.play-pause-btn:active { transform: translateY(1px); }
+.progress-container { display: flex; flex: 1; min-width: 0; flex-direction: column; gap: 8px; }
+.progress-slider { width: 100%; accent-color: #c58a16; cursor: pointer; }
+.time-display { display: flex; justify-content: space-between; color: #877762; font-size: .75rem; font-variant-numeric: tabular-nums; }
+.no-audio-alert { margin-bottom: 22px; padding: 16px; color: #77521b; background: #fff6dc; border: 1px solid #ead39d; border-radius: 8px; font-size: .9rem; }
+.no-audio-alert p { margin: 8px 0 14px; line-height: 1.65; }
+.speech-controls { display: flex; flex-wrap: wrap; gap: 9px; }
+.speech-button, .speech-stop-button { padding: 10px 14px; border: 1px solid transparent; border-radius: 8px; font-weight: 680; font-size: .88rem; cursor: pointer; }
+.speech-button { color: #3e2b10; background: var(--hoi-gold); border-color: #c68a14; }
+.speech-button:hover:not(:disabled) { background: #efb83f; }
+.speech-button:disabled { opacity: .5; cursor: not-allowed; }
+.speech-stop-button { color: #62513d; background: #f3eadb; border-color: #e1d3bc; }
+.poi-text-content { max-height: 300px; overflow-y: auto; padding-right: 8px; color: #514434; font-size: .96rem; line-height: 1.8; text-align: left; overflow-wrap: anywhere; }
+.poi-text-content h3 { margin: 0 0 10px; color: var(--hoi-ink); font-size: 1.05rem; font-weight: 720; }
+.poi-text-content p { margin: 0; white-space: pre-line; }
+.poi-text-content::-webkit-scrollbar { width: 5px; }
+.poi-text-content::-webkit-scrollbar-thumb { background: #d9c9ae; border-radius: 4px; }
+.player-error { margin: 12px 0 0; color: var(--hoi-danger); font-size: .82rem; }
+@media (max-width: 600px) {
+    .audio-card-container { margin: 15px 0; border-radius: 10px; }
+    .cover-container { height: 190px; }
+    .audio-card-body { padding: 17px; }
+    .custom-player { padding: 13px; }
+    .play-pause-btn { width: 44px; height: 44px; }
+}
+
+/* Decorative old-town linework sits behind the narration card content. */
+.audio-card-container {
+    position: relative;
+    isolation: isolate;
+}
+.audio-card-container::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    right: 8px;
+    bottom: 8px;
+    width: 128px;
+    height: 72px;
+    background: url("/Decorations/oldtown-lineart.svg") right bottom / contain no-repeat;
+    opacity: .14;
+    pointer-events: none;
+}
+@media (max-width: 620px) {
+    .audio-card-container::after { width: 92px; height: 54px; opacity: .1; }
+}
