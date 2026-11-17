@@ -20,6 +20,13 @@ public class AudioUrlValidator
         try {
             URI uri = URI.create(value.trim());
 
+            if (!uri.isAbsolute()) {
+                return uri.getRawQuery() == null
+                        && uri.getRawFragment() == null
+                        && uri.getRawPath() != null
+                        && uri.getRawPath().matches("/audio/[A-Za-z0-9_-]+\\.mp3");
+            }
+
             String scheme = uri.getScheme();
 
             return uri.isAbsolute()
