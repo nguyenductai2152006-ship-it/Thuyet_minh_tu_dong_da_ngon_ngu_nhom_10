@@ -17,49 +17,56 @@ import java.util.List;
 public class AudioService {
 
     private final AudioRepository repository;
+    private final PoiReferenceValidator poiValidator;
+    private final AudioPoiMutationLock mutationLock;
 
-    public AudioService(AudioRepository repository) {
+    public AudioService(
+            AudioRepository repository,
+            PoiReferenceValidator poiValidator,
+            AudioPoiMutationLock mutationLock
+    ) {
         this.repository = repository;
+        this.poiValidator = poiValidator;
+        this.mutationLock = mutationLock;
     }
 
     public AudioResponse create(CreateAudioRequest request) {
+
+        Long poiId = request.getPoiId();
+
+        mutationLock.acquire(poiId);
+        poiValidator.requireExisting(poiId);
 
         String languageCode =
                 normalizeLanguageCode(request.getLanguageCode());
 
         if (repository.existsByPoiIdAndLanguageCode(
-                request.getPoiId(),
+                poiId,
                 languageCode
         )) {
             throw new DuplicateAudioException(
                     "Audio already exists for POI "
-                            + request.getPoiId()
+                            + poiId
                             + " and language "
                             + languageCode
             );
         }
 
         Audio entity = new Audio();
-
-        entity.setPoiId(request.getPoiId());
+        entity.setPoiId(poiId);
         entity.setLanguageCode(languageCode);
         entity.setAudioUrl(request.getAudioUrl().trim());
         entity.setDurationSeconds(request.getDurationSeconds());
 
-        return AudioResponse.fromEntity(
-                repository.save(entity)
-        );
+        return AudioResponse.fromEntity(repository.save(entity));
     }
 
     @Transactional(readOnly = true)
     public AudioResponse findById(Long id) {
 
-        Audio entity = repository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Audio not found with id: " + id
-                        )
-                );
+        Audio entity = getAudioOrThrow(id);
+
+        poiValidator.requireReadable(entity.getPoiId());
 
         return AudioResponse.fromEntity(entity);
     }
@@ -70,22 +77,23 @@ public class AudioService {
             String languageCode
     ) {
 
+        poiValidator.requireReadable(poiId);
+
         String normalizedLanguage =
                 normalizeLanguageCode(languageCode);
 
-        Audio entity =
-                repository.findByPoiIdAndLanguageCode(
-                                poiId,
-                                normalizedLanguage
+        Audio entity = repository.findByPoiIdAndLanguageCode(
+                        poiId,
+                        normalizedLanguage
+                )
+                .orElseThrow(() ->
+                        new ResourceNotFoundException(
+                                "Audio not found for POI "
+                                        + poiId
+                                        + " and language "
+                                        + normalizedLanguage
                         )
-                        .orElseThrow(() ->
-                                new ResourceNotFoundException(
-                                        "Audio not found for POI "
-                                                + poiId
-                                                + " and language "
-                                                + normalizedLanguage
-                                )
-                        );
+                );
 
         return AudioResponse.fromEntity(entity);
     }
@@ -93,8 +101,9 @@ public class AudioService {
     @Transactional(readOnly = true)
     public List<AudioResponse> findByPoiId(Long poiId) {
 
-        return repository
-                .findByPoiIdOrderByLanguageCodeAsc(poiId)
+        poiValidator.requireReadable(poiId);
+
+        return repository.findByPoiIdOrderByLanguageCodeAsc(poiId)
                 .stream()
                 .map(AudioResponse::fromEntity)
                 .toList();
@@ -105,24 +114,33 @@ public class AudioService {
             UpdateAudioRequest request
     ) {
 
-        Audio entity = repository.findById(id)
-                .orElseThrow(() ->
-                        new ResourceNotFoundException(
-                                "Audio not found with id: " + id
-                        )
-                );
+        Audio existing = getAudioOrThrow(id);
+
+        Long poiId = existing.getPoiId();
+
+        mutationLock.acquire(poiId);
+
+        Audio entity = getAudioOrThrow(id);
+
+        if (!poiId.equals(entity.getPoiId())) {
+            throw new ResourceNotFoundException(
+                    "Audio association changed. Please retry."
+            );
+        }
+
+        poiValidator.requireExisting(poiId);
 
         String languageCode =
                 normalizeLanguageCode(request.getLanguageCode());
 
         if (repository.existsByPoiIdAndLanguageCodeAndIdNot(
-                entity.getPoiId(),
+                poiId,
                 languageCode,
                 id
         )) {
             throw new DuplicateAudioException(
                     "Audio already exists for POI "
-                            + entity.getPoiId()
+                            + poiId
                             + " and language "
                             + languageCode
             );
@@ -132,25 +150,41 @@ public class AudioService {
         entity.setAudioUrl(request.getAudioUrl().trim());
         entity.setDurationSeconds(request.getDurationSeconds());
 
-        return AudioResponse.fromEntity(
-                repository.save(entity)
-        );
+        return AudioResponse.fromEntity(repository.save(entity));
     }
 
     public void delete(Long id) {
 
-        Audio entity = repository.findById(id)
+        Audio existing = getAudioOrThrow(id);
+
+        Long poiId = existing.getPoiId();
+
+        mutationLock.acquire(poiId);
+
+        Audio entity = getAudioOrThrow(id);
+
+        if (!poiId.equals(entity.getPoiId())) {
+            throw new ResourceNotFoundException(
+                    "Audio association changed. Please retry."
+            );
+        }
+
+        poiValidator.requireExisting(poiId);
+
+        repository.delete(entity);
+    }
+
+    private Audio getAudioOrThrow(Long id) {
+
+        return repository.findById(id)
                 .orElseThrow(() ->
                         new ResourceNotFoundException(
                                 "Audio not found with id: " + id
                         )
                 );
-
-        repository.delete(entity);
     }
 
     private String normalizeLanguageCode(String languageCode) {
-
         return languageCode.trim().toLowerCase();
     }
 }

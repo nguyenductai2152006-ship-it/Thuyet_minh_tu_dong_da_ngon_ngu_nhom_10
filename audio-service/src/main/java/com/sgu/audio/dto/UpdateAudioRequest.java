@@ -1,6 +1,8 @@
 package com.sgu.audio.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import com.sgu.audio.service.ValidAudioUrl;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
@@ -20,6 +22,8 @@ public class UpdateAudioRequest {
     private String languageCode;
 
     @NotBlank(message = "Audio URL must not be blank")
+    @ValidAudioUrl
+    @Size(max = 500, message = "Audio URL must not exceed 500 characters")
     private String audioUrl;
 
     @PositiveOrZero(message = "Duration must be zero or positive")
