@@ -93,3 +93,4 @@ Thumbs.db
 # Local Development
 # ==================================
 *.local
+/artifacts/admin-e2e/

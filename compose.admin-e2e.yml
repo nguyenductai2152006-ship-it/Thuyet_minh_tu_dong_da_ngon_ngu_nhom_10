@@ -1,0 +1,96 @@
+# Dedicated test network and volume. Run with the supplied launcher, not docker-compose.yml.
+x-app-env: &app-env
+  SPRING_DATASOURCE_USERNAME: root
+  SPRING_DATASOURCE_PASSWORD: ${E2E_MYSQL_PASSWORD:?Run the E2E launcher}
+  JWT_SECRET: ${E2E_JWT_SECRET:?Run the E2E launcher}
+  JAVA_TOOL_OPTIONS: -Xmx256m -Duser.timezone=Asia/Ho_Chi_Minh
+  TZ: Asia/Ho_Chi_Minh
+x-test-env: &test-env
+  E2E_MODE: isolated
+  E2E_RUN_ID: ${E2E_RUN_ID:?Run the E2E launcher}
+  E2E_DB_HOST: mysql-e2e
+  E2E_DB_PASSWORD: ${E2E_MYSQL_PASSWORD:?Run the E2E launcher}
+  E2E_ADMIN_PASSWORD: ${E2E_ADMIN_PASSWORD:?Run the E2E launcher}
+  E2E_USER_PASSWORD: ${E2E_USER_PASSWORD:?Run the E2E launcher}
+  E2E_BASE_URL: http://frontend
+services:
+  mysql-e2e:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: ${E2E_MYSQL_PASSWORD:?Run the E2E launcher}
+      MYSQL_ROOT_HOST: "%"
+    command: ["--default-authentication-plugin=mysql_native_password", "--default-time-zone=+00:00"]
+    volumes:
+      - admin-e2e-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$$MYSQL_ROOT_PASSWORD\" --silent"]
+      interval: 3s
+      timeout: 5s
+      retries: 40
+  fixture-e2e:
+    build:
+      context: .
+      dockerfile: tests/e2e/Dockerfile
+    command: ["--prepare"]
+    environment: *test-env
+    depends_on:
+      mysql-e2e:
+        condition: service_healthy
+  identity-service:
+    build: ./identity-service
+    environment:
+      <<: *app-env
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-e2e:3306/identity_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Ho_Chi_Minh
+    depends_on:
+      fixture-e2e:
+        condition: service_completed_successfully
+  poi-service:
+    build: ./poi-service
+    environment:
+      <<: *app-env
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-e2e:3306/poi_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Ho_Chi_Minh
+      LOCALIZATION_SERVICE_URL: http://localization-service:8082
+      AUDIO_SERVICE_URL: http://audio-service:8083
+    depends_on:
+      fixture-e2e:
+        condition: service_completed_successfully
+  localization-service:
+    build: ./localization-service
+    environment:
+      <<: *app-env
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-e2e:3306/localization_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Ho_Chi_Minh
+      POI_SERVICE_URL: http://poi-service:8081
+    depends_on:
+      fixture-e2e:
+        condition: service_completed_successfully
+  audio-service:
+    build: ./audio-service
+    environment:
+      <<: *app-env
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-e2e:3306/audio_db?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Ho_Chi_Minh
+      POI_SERVICE_URL: http://poi-service:8081
+    depends_on:
+      fixture-e2e:
+        condition: service_completed_successfully
+  api-gateway:
+    build: ./api-gateway
+    environment:
+      JAVA_TOOL_OPTIONS: -Xmx256m
+      IDENTITY_URI: http://identity-service:8085
+      POI_URI: http://poi-service:8081
+      LOCALIZATION_URI: http://localization-service:8082
+      AUDIO_URI: http://audio-service:8083
+    depends_on: [identity-service, poi-service, localization-service, audio-service]
+  frontend:
+    build: ./frontend
+    depends_on: [api-gateway]
+  admin-e2e:
+    build:
+      context: .
+      dockerfile: tests/e2e/Dockerfile
+    environment: *test-env
+    depends_on: [frontend]
+    volumes:
+      - ./artifacts/admin-e2e/${E2E_RUN_ID}:/reports
+volumes:
+  admin-e2e-data:
