@@ -19,10 +19,15 @@
 *.tar.gz
 *.rar
 
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+# virtual machine crash logs
 hs_err_pid*
-replay_pid*
 
+# Spring Boot
+### STS ###
+.springBeans
+.sts4-cache
+
+# Maven
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -32,7 +37,6 @@ release.properties
 dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
-# https://maven.apache.org/tools/wrapper/#Usage_with_or_without_Binary_JAR
 .mvn/wrapper/maven-wrapper.jar
 
 # Eclipse m2e generated files
@@ -93,4 +97,8 @@ Thumbs.db
 # Local Development
 # ==================================
 *.local
+# IDEs
+.idea/
+*.iml
+.vscode/
 /artifacts/admin-e2e/
