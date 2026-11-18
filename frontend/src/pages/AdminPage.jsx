@@ -1,3 +1,4 @@
+import { getAdminEmailError } from "../utils/adminEmail";
 import { useCallback, useEffect, useState } from "react";
 import AdminDashboard from "../components/AdminDashboard";
 import { getCurrentUser, login, logout } from "../api/api";
@@ -19,6 +20,7 @@ export default function AdminPage() {
     const [password, setPassword] = useState("");
     const [busy, setBusy] = useState(false);
     const [error, setError] = useState("");
+    const [emailError, setEmailError] = useState("");
 
     const verifyAdmin = useCallback(async () => {
         const currentUser = await getCurrentUser();
@@ -60,6 +62,13 @@ export default function AdminPage() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        const emailInput = event.currentTarget.querySelector('input[type="email"]');
+        const validationError = getAdminEmailError(emailInput);
+        setEmailError(validationError);
+        if (validationError) {
+            emailInput.focus();
+            return;
+        }
         setBusy(true);
         setError("");
         try {
@@ -110,8 +119,20 @@ export default function AdminPage() {
                     {error && <div className="hag-admin-page__error" role="alert">{error}</div>}
                     <form onSubmit={handleSubmit} className="hag-admin-login-form">
                         <label>Email quản trị
-                            <input type="email" autoComplete="username" required value={email} onChange={(event) => setEmail(event.target.value)} />
+                            <input type="email" autoComplete="username" required value={email}
+                                aria-invalid={Boolean(emailError)}
+                                aria-describedby={emailError ? "admin-email-error" : undefined}
+                                onInvalid={(event) => {
+                                    event.preventDefault();
+                                    setEmailError(getAdminEmailError(event.currentTarget));
+                                    event.currentTarget.focus();
+                                }}
+                                onChange={(event) => {
+                                    setEmail(event.target.value);
+                                    setEmailError("");
+                                }} />
                         </label>
+                        {emailError && <p id="admin-email-error" className="hag-admin-page__error" role="alert">{emailError}</p>}
                         <label>Mật khẩu
                             <input type="password" autoComplete="current-password" required value={password} onChange={(event) => setPassword(event.target.value)} />
                         </label>

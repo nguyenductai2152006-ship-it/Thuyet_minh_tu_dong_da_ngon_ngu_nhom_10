@@ -1,3 +1,4 @@
+import { getAdminEmailError } from "../utils/adminEmail";
 import { useState } from "react";
 import { login, logout } from "../api/api";
 
@@ -6,9 +7,17 @@ function LoginForm({ onLoginSuccess, onCancel }) {
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
+    const [emailError, setEmailError] = useState("");
 
     async function handleSubmit(event) {
         event.preventDefault();
+        const emailInput = event.currentTarget.querySelector('input[type="email"]');
+        const validationError = getAdminEmailError(emailInput);
+        setEmailError(validationError);
+        if (validationError) {
+            emailInput.focus();
+            return;
+        }
 
         setError("");
         setLoading(true);
@@ -49,11 +58,22 @@ function LoginForm({ onLoginSuccess, onCancel }) {
                         type="email"
                         autoComplete="username"
                         value={email}
-                        onChange={(event) => setEmail(event.target.value)}
+                        aria-invalid={Boolean(emailError)}
+                        aria-describedby={emailError ? "admin-email-error" : undefined}
+                        onInvalid={(event) => {
+                            event.preventDefault();
+                            setEmailError(getAdminEmailError(event.currentTarget));
+                            event.currentTarget.focus();
+                        }}
+                        onChange={(event) => {
+                            setEmail(event.target.value);
+                            setEmailError("");
+                        }}
                         required
                     />
                 </div>
 
+                {emailError && <p id="admin-email-error" className="login-error" role="alert">{emailError}</p>}
                 <div>
                     <label htmlFor="admin-password">Mật khẩu</label>
                     <input
